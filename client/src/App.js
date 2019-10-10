@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import Governance from "./contracts/Governance.json";
 import getWeb3 from "./utils/getWeb3";
 
+import Nav from './components/Nav';
+
+import './layout/config/_base.sass';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -47,6 +51,7 @@ class App extends Component {
     }
     return (
       <div>
+        <Nav />
       </div>
     );
   }
