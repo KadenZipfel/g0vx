@@ -3,6 +3,7 @@ import Governance from "./contracts/Governance.json";
 import getWeb3 from "./utils/getWeb3";
 
 import Nav from './components/Nav';
+import Hero from './components/Hero';
 
 import './layout/config/_base.sass';
 
@@ -12,8 +13,12 @@ class App extends Component {
     this.state = {
       web3: null,
       accounts: null,
-      contract: null
+      contract: null,
+      proposals: []
     }
+
+    this.getProposals = this.getProposals.bind(this);
+    this.createProposal = this.createProposal.bind(this);
   }
 
   componentDidMount = async () => {
@@ -34,8 +39,9 @@ class App extends Component {
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, contract: instance }, this.runExample);
-
+      this.setState({ web3, accounts, contract: instance }, this.runExample)
+      
+      this.getProposals();
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -45,6 +51,24 @@ class App extends Component {
     }
   };
 
+  // Finish this once we can create proposals
+  async getProposals() {
+    const proposalsLength = await this.state.contract.methods.getProposalsLength().call();
+    let proposalArr = [];
+    for(let i = 0; i < proposalsLength; i++) {
+      const proposal = await this.state.contract.methods.proposals(i).call();
+      const proposalObj = {id: proposal.id, name: proposal.name};
+      proposalArr.push(proposalObj);
+    }
+    this.setState({proposals: proposalArr});
+  }
+
+  async createProposal(name) {
+    await this.state.contract.methods.submitProposal(name)
+      .send({from: this.state.accounts[0]})
+    this.getProposals();
+  }
+
   render() {
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
@@ -52,6 +76,7 @@ class App extends Component {
     return (
       <div>
         <Nav />
+        <Hero {...this.state} createProposal={this.createProposal} />
       </div>
     );
   }

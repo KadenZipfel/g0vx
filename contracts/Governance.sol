@@ -40,18 +40,14 @@ contract Governance {
     }
 
     // Submit a proposal for others to vote on
-    function submitProposal(string memory _name) public returns(uint) {
-        uint _id = proposals.length;
-
+    function submitProposal(string memory _name) public {
         proposals.push(Proposal({
             name: _name,
-            id: _id,
+            id: proposals.length,
             voteWeightFor: 0,
             voteWeightAgainst: 0,
             startTime: now
         }));
-
-        return _id;
     }
 
     // Vote for or against a proposal
@@ -87,5 +83,9 @@ contract Governance {
         if(proposal.voteWeightAgainst >= proposal.voteWeightFor) {
             return false;
         }
+    }
+
+    function getProposalsLength() public view returns(uint) {
+        return proposals.length;
     }
 }
