@@ -6195,12 +6195,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xD6B7b9E70e6e5a433B1498d8d025542508246461",
-      "transactionHash": "0x29e80a53ce7ff9e744354144f9fe4071d6666e2b499d68f1ef80082cf2f2b236"
+      "address": "0x00DF98E9101436daA392E09B35998b04F9cA1209",
+      "transactionHash": "0x8efa38a34ac14c52f244e29811cf339c51bc90ce0d4aa8c8bd48e05c39f38e1c"
     }
   },
   "schemaVersion": "3.0.16",
-  "updatedAt": "2019-10-10T17:52:49.988Z",
+  "updatedAt": "2019-10-11T01:08:58.992Z",
   "devdoc": {
     "methods": {},
     "title": "Governance Protocol"

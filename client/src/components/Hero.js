@@ -28,7 +28,14 @@ class Hero extends Component {
     let proposals = [];
     this.props.proposals.forEach(proposal => {
       proposals.push(
-        <Proposal id={proposal.id} name={proposal.name} key={proposal.id} />
+        <Proposal 
+          {...this.props}
+          id={proposal.id} 
+          name={proposal.name} 
+          key={proposal.id}
+          voteWeightFor={proposal.voteWeightFor} 
+          voteWeightAgainst={proposal.voteWeightAgainst}
+        />
       );
     });
 

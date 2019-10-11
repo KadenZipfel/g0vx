@@ -57,7 +57,14 @@ class App extends Component {
     let proposalArr = [];
     for(let i = 0; i < proposalsLength; i++) {
       const proposal = await this.state.contract.methods.proposals(i).call();
-      const proposalObj = {id: proposal.id, name: proposal.name};
+      console.log(proposal);
+      const proposalObj = {
+        id: proposal.id, 
+        name: proposal.name,
+        timeLimit: proposal.timeLimit,
+        voteWeightFor: proposal.voteWeightFor,
+        voteWeightAgainst: proposal.voteWeightAgainst
+      };
       proposalArr.push(proposalObj);
     }
     this.setState({proposals: proposalArr});
@@ -76,7 +83,11 @@ class App extends Component {
     return (
       <div>
         <Nav />
-        <Hero {...this.state} createProposal={this.createProposal} />
+        <Hero 
+          {...this.state} 
+          createProposal={this.createProposal}
+          getProposals={this.getProposals}
+        />
       </div>
     );
   }
