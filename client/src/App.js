@@ -19,6 +19,7 @@ class App extends Component {
 
     this.getProposals = this.getProposals.bind(this);
     this.createProposal = this.createProposal.bind(this);
+    this.getVoter = this.getVoter.bind(this);
   }
 
   componentDidMount = async () => {
@@ -58,10 +59,19 @@ class App extends Component {
         });
       }
     }, 1000);
+
+    this.getVoter();
   };
 
   componentWillUnmount() {
     clearInterval(this.accountInterval);
+  }
+
+  // Get voter to see whats going on with delegates
+  async getVoter() {
+    const account = await this.state.accounts[0];
+    const voter = await this.state.contract.methods.voters(account).call();
+    console.log(voter);
   }
 
   // Finish this once we can create proposals

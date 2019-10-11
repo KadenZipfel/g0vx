@@ -59,7 +59,11 @@ contract Governance {
 
         Voter memory voter = voters[msg.sender];
 
-        voters[msg.sender].weight = msg.sender.balance + voter.delegatee.balance;
+        if(voter.delegatee == 0x0000000000000000000000000000000000000000) {
+            voters[msg.sender].weight = msg.sender.balance;
+        } else {
+            voters[msg.sender].weight = msg.sender.balance + voter.delegatee.balance;
+        }
 
         vote.voted = true;
         vote.support = _support;
