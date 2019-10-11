@@ -20,6 +20,7 @@ class App extends Component {
     this.getProposals = this.getProposals.bind(this);
     this.createProposal = this.createProposal.bind(this);
     this.getVoter = this.getVoter.bind(this);
+    this.delegate = this.delegate.bind(this);
   }
 
   componentDidMount = async () => {
@@ -95,8 +96,13 @@ class App extends Component {
 
   async createProposal(name) {
     await this.state.contract.methods.submitProposal(name)
-      .send({from: this.state.account})
+      .send({from: this.state.account});
     this.getProposals();
+  }
+
+  async delegate(address) {
+    await this.state.contract.methods.delegate(address)
+      .send({from: this.state.account});
   }
 
   render() {
@@ -110,6 +116,7 @@ class App extends Component {
           {...this.state} 
           createProposal={this.createProposal}
           getProposals={this.getProposals}
+          delegate={this.delegate}
         />
       </div>
     );

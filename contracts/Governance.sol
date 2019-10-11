@@ -17,7 +17,7 @@ contract Governance {
     }
 
     struct Voter {
-        address delegatee; // voter that delegated weight to this address
+        address[] delegatees; // voter that delegated weight to this address
         uint weight; // based on amount of funds locked in contract
         mapping(uint => Vote) votes; // map proposal id to vote
     }
@@ -36,7 +36,7 @@ contract Governance {
     // Pick a delegate to pass your voting weight on to
     // Delegated voting power is only used for future votes
     function delegate(address _delegate) public {
-        voters[_delegate].delegatee = msg.sender;
+        voters[_delegate].delegatees.push(msg.sender);
     }
 
     // Submit a proposal for others to vote on
@@ -59,10 +59,14 @@ contract Governance {
 
         Voter memory voter = voters[msg.sender];
 
-        if(voter.delegatee == 0x0000000000000000000000000000000000000000) {
+        if(voter.delegatees[0] == 0x0000000000000000000000000000000000000000) {
             voters[msg.sender].weight = msg.sender.balance;
         } else {
-            voters[msg.sender].weight = msg.sender.balance + voter.delegatee.balance;
+            uint weight = msg.sender.balance;
+            for(uint i = 0; i < voter.delegatees.length; i++) {
+                weight += voter.delegatees[i].balance;
+            }
+            voters[msg.sender].weight = weight;
         }
 
         vote.voted = true;
