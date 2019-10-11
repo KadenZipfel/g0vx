@@ -20,6 +20,7 @@ contract Governance {
         address[] delegatees; // voter that delegated weight to this address
         uint weight; // based on amount of funds locked in contract
         mapping(uint => Vote) votes; // map proposal id to vote
+        bool delegated; // has the voter already delegated?
     }
 
     Proposal[] public proposals;
@@ -36,6 +37,8 @@ contract Governance {
     // Pick a delegate to pass your voting weight on to
     // Delegated voting power is only used for future votes
     function delegate(address _delegate) public {
+        require(voters[msg.sender].delegated == false, 'You can only delegate once.');
+        voters[msg.sender].delegated = true;
         voters[_delegate].delegatees.push(msg.sender);
     }
 
@@ -58,15 +61,16 @@ contract Governance {
         require(proposals[_proposalId].startTime + timeLimit > now, 'The voting period has expired.');
 
         Voter memory voter = voters[msg.sender];
+        require(voters[msg.sender].delegated == false, 'You cannot vote if you have already delegated.');
 
-        if(voter.delegatees[0] == 0x0000000000000000000000000000000000000000) {
-            voters[msg.sender].weight = msg.sender.balance;
-        } else {
+        if(voter.delegatees.length > 0) {
             uint weight = msg.sender.balance;
             for(uint i = 0; i < voter.delegatees.length; i++) {
                 weight += voter.delegatees[i].balance;
             }
             voters[msg.sender].weight = weight;
+        } else {
+            voters[msg.sender].weight = msg.sender.balance;
         }
 
         vote.voted = true;
