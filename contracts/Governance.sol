@@ -52,7 +52,7 @@ contract Governance {
 
     // Vote for or against a proposal
     function submitVote(uint _proposalId, bool _support) public {
-        Vote memory vote = voters[msg.sender].votes[_proposalId];
+        Vote storage vote = voters[msg.sender].votes[_proposalId];
         // Prevent voter from voting on same proposal more than once
         require(vote.voted == false, 'You have already voted on this proposal.');
         require(proposals[_proposalId].startTime + timeLimit > now, 'The voting period has expired.');
