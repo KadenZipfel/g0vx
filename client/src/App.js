@@ -12,7 +12,7 @@ class App extends Component {
     super(props);
     this.state = {
       web3: null,
-      accounts: null,
+      account: null,
       contract: null,
       proposals: []
     }
@@ -49,7 +49,20 @@ class App extends Component {
       );
       console.error(error);
     }
+
+    this.accountInterval = setInterval(async () => {
+      const accounts = await this.state.web3.eth.getAccounts();
+      if (accounts[0] !== this.state.account) {
+        this.setState({
+          account: accounts[0]
+        });
+      }
+    }, 1000);
   };
+
+  componentWillUnmount() {
+    clearInterval(this.accountInterval);
+  }
 
   // Finish this once we can create proposals
   async getProposals() {
@@ -72,7 +85,7 @@ class App extends Component {
 
   async createProposal(name) {
     await this.state.contract.methods.submitProposal(name)
-      .send({from: this.state.accounts[0]})
+      .send({from: this.state.account})
     this.getProposals();
   }
 

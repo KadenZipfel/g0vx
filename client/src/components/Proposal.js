@@ -10,7 +10,7 @@ class Proposal extends Component {
 
   handleVoteFor() {
     this.props.contract.methods.submitVote(this.props.id, true)
-      .send({from: this.props.accounts[0]})
+      .send({from: this.props.account})
       .then(() => {
         this.props.getProposals();
       });
@@ -18,7 +18,7 @@ class Proposal extends Component {
 
   handleVoteAgainst() {
     this.props.contract.methods.submitVote(this.props.id, false)
-      .send({from: this.props.accounts[0]})
+      .send({from: this.props.account})
       .then(() => {
         this.props.getProposals();
       });
@@ -29,8 +29,8 @@ class Proposal extends Component {
       <div>
         <p>id: {this.props.id}</p>
         <p>name: {this.props.name}</p>
-        <p>for: {this.props.voteWeightFor}</p>
-        <p>against: {this.props.voteWeightAgainst}</p>
+        <p>for: {this.props.web3.utils.fromWei(this.props.voteWeightFor, 'ether')}</p>
+        <p>against: {this.props.web3.utils.fromWei(this.props.voteWeightAgainst, 'ether')}</p>
         <button onClick={this.handleVoteFor}>Vote For</button>
         <button onClick={this.handleVoteAgainst}>Vote Against</button>
       </div>
