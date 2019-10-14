@@ -26,6 +26,9 @@ contract Governance {
     Proposal[] public proposals;
     mapping(address => Voter) public voters;
 
+    // Next id to be used for proposals
+    uint nextId;
+
     // Time limit to vote on proposals (in seconds)
     uint public timeLimit;
 
@@ -46,11 +49,12 @@ contract Governance {
     function submitProposal(string memory _name) public {
         proposals.push(Proposal({
             name: _name,
-            id: proposals.length,
+            id: nextId,
             voteWeightFor: 0,
             voteWeightAgainst: 0,
             startTime: now
         }));
+        nextId += 1;
     }
 
     // Vote for or against a proposal
@@ -87,7 +91,7 @@ contract Governance {
     function result(uint _proposalId) public view returns(bool) {
         Proposal memory proposal = proposals[_proposalId];
         // Ensure the proposal duration is complete
-        require(proposal.startTime + timeLimit <= now, 'There is still time left in the proposal.');
+        require((proposal.startTime + timeLimit) <= now, 'There is still time left in the proposal.');
         if(proposal.voteWeightFor > proposal.voteWeightAgainst) {
             return true;
         }

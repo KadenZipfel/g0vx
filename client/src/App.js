@@ -62,6 +62,7 @@ class App extends Component {
     }, 1000);
 
     this.getVoter();
+    this.getTimeLimit();
   };
 
   componentWillUnmount() {
@@ -73,6 +74,11 @@ class App extends Component {
     const account = await this.state.accounts[0];
     const voter = await this.state.contract.methods.voters(account).call();
     console.log(voter);
+  }
+
+  async getTimeLimit() {
+    const timeLimit = await this.state.contract.methods.timeLimit().call();
+    console.log(timeLimit);
   }
 
   // Finish this once we can create proposals

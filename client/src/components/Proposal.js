@@ -6,6 +6,7 @@ class Proposal extends Component {
 
     this.handleVoteFor = this.handleVoteFor.bind(this);
     this.handleVoteAgainst = this.handleVoteAgainst.bind(this);
+    this.handleResult = this.handleResult.bind(this);
   }
 
   handleVoteFor() {
@@ -24,6 +25,13 @@ class Proposal extends Component {
       });
   }
 
+  handleResult() {
+    this.props.contract.methods.result(this.props.id)
+      .call((err, result) => {
+        console.log(result);
+      });
+  }
+
   render() {
     return (
       <div>
@@ -33,6 +41,7 @@ class Proposal extends Component {
         <p>against: {this.props.web3.utils.fromWei(this.props.voteWeightAgainst, 'ether')}</p>
         <button onClick={this.handleVoteFor}>Vote For</button>
         <button onClick={this.handleVoteAgainst}>Vote Against</button>
+        <button onClick={this.handleResult}>Result</button>
       </div>
     );
   }
