@@ -8401,12 +8401,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xA3922795765a564fD0037724183C1978C6ed7862",
-      "transactionHash": "0x114ca90358f3277f162e8d5838c5cf58c68cc4a6111669d1d665a843ed1b3b29"
+      "address": "0x9B91202EFA29b33827b9442F95C7cD795335F765",
+      "transactionHash": "0x0bd8ec211f1bd5fbcfd768c71844d6058ff5fea0e61c1ca5507adb4255b9c32a"
     }
   },
   "schemaVersion": "3.0.16",
-  "updatedAt": "2019-10-14T17:14:26.875Z",
+  "updatedAt": "2019-10-15T02:46:20.472Z",
   "devdoc": {
     "methods": {},
     "title": "Governance Protocol"

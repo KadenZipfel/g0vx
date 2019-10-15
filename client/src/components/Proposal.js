@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import '../layout/components/proposal.sass';
+
 class Proposal extends Component {
   constructor(props) {
     super(props);
@@ -34,14 +36,22 @@ class Proposal extends Component {
 
   render() {
     return (
-      <div>
-        <p>id: {this.props.id}</p>
-        <p>name: {this.props.name}</p>
-        <p>for: {this.props.web3.utils.fromWei(this.props.voteWeightFor, 'ether')}</p>
-        <p>against: {this.props.web3.utils.fromWei(this.props.voteWeightAgainst, 'ether')}</p>
-        <button onClick={this.handleVoteFor}>Vote For</button>
-        <button onClick={this.handleVoteAgainst}>Vote Against</button>
-        <button onClick={this.handleResult}>Result</button>
+      <div className="proposal">
+        <p className="proposal__name">{this.props.name}</p>
+        <div className="proposal__buttons">
+          <button 
+            className="proposal__button proposal__button--for" 
+            onClick={this.handleVoteFor}
+          >
+            Vote For
+          </button>
+          <button 
+            className="proposal__button proposal__button--against" 
+            onClick={this.handleVoteAgainst}
+          >
+            Vote Against
+          </button>
+        </div>
       </div>
     );
   }
