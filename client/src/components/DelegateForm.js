@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import '../layout/components/delegateform.sass';
+
 class DelegateForm extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +38,7 @@ class DelegateForm extends Component {
       >
         <input 
           type="text"
-          placeholder="0x000000000000000000000000"
+          placeholder="0x0000000000000000000000000000000000000000"
           value={this.state.delegateName}
           onChange={this.handleDelegateChange} 
           className="delegate-form__input"

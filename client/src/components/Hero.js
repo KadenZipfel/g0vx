@@ -5,6 +5,8 @@ import Header from './Header';
 import ProposalForm from './ProposalForm';
 import DelegateForm from './DelegateForm';
 
+import '../layout/components/hero.sass';
+
 // This isn't really a hero lol
 class Hero extends Component {
   render() {
@@ -23,20 +25,22 @@ class Hero extends Component {
     });
 
     return(
-      <div>
+      <section className="hero">
         <Header />
-        <ProposalForm 
-          {...this.props}
-          getProposals={this.props.getProposals} 
-        />
-        <DelegateForm
-          {...this.props}
-          delegate={this.props.delegate}
-        />
+        <div className="hero__forms">
+          <ProposalForm 
+            {...this.props}
+            getProposals={this.props.getProposals} 
+          />
+          <DelegateForm
+            {...this.props}
+            delegate={this.props.delegate}
+          />
+        </div>
         <div>
           {proposals}
         </div>
-      </div>
+      </section>
     );
   }
 }
