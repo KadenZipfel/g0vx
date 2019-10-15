@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import '../layout/components/proposalform.sass';
+
 class ProposalForm extends Component {
   constructor(props) {
     super(props);
@@ -35,13 +37,14 @@ class ProposalForm extends Component {
         className="proposal-form"
         onSubmit={this.handleProposalSubmit}
       >
-        <input 
+        <textarea 
           type="text"
           placeholder="Submit a proposal..."
           value={this.state.proposalName}
           onChange={this.handleProposalChange} 
           className="proposal-form__input"
-        />
+          maxlength="255"
+        ></textarea>
         <button className="proposal-form__button">
           Submit
         </button>

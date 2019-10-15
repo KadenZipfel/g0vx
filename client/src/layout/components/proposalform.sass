@@ -1,0 +1,26 @@
+@import ../config/colors
+  
+.proposal-form
+  width: 66%
+  display: flex
+  height: 92px
+
+.proposal-form__input
+  height: 100%
+  width: 75%
+  border: 1px solid rgba(0, 0, 0, 0.25)
+  background: white
+  border-radius: 8px 0 0 8px
+  // For some reason it's misaligned without this
+  transform: translateY(-1px)
+  font-family: Roboto, sans-serif
+  padding: 8px
+
+.proposal-form__button
+  background: $color-brand-light
+  color: white
+  border: none
+  height: 100%
+  width: 25%
+  font-size: 28px
+  border-radius: 0 8px 8px 0
