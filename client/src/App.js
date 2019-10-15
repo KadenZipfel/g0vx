@@ -14,7 +14,8 @@ class App extends Component {
       web3: null,
       account: null,
       contract: null,
-      proposals: []
+      proposals: [],
+      timeLimit: null
     }
 
     this.getProposals = this.getProposals.bind(this);
@@ -42,8 +43,6 @@ class App extends Component {
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
       this.setState({ web3, accounts, contract: instance }, this.runExample)
-      
-      this.getProposals();
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -63,6 +62,7 @@ class App extends Component {
 
     this.getVoter();
     this.getTimeLimit();
+    this.getProposals();
   };
 
   componentWillUnmount() {
@@ -78,7 +78,7 @@ class App extends Component {
 
   async getTimeLimit() {
     const timeLimit = await this.state.contract.methods.timeLimit().call();
-    console.log(timeLimit);
+    this.setState({timeLimit});
   }
 
   // Finish this once we can create proposals

@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 
 import Proposal from './Proposal';
+import Header from './Header';
 
+// This isn't really a hero lol
 class Hero extends Component {
   constructor(props) {
     super(props);
@@ -55,6 +57,7 @@ class Hero extends Component {
 
     return(
       <div>
+        <Header />
         <form onSubmit={this.handleProposalSubmit}>
           <input 
             type="text" 
