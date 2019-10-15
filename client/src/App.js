@@ -19,7 +19,6 @@ class App extends Component {
     }
 
     this.getProposals = this.getProposals.bind(this);
-    this.createProposal = this.createProposal.bind(this);
     this.getVoter = this.getVoter.bind(this);
     this.delegate = this.delegate.bind(this);
   }
@@ -100,12 +99,6 @@ class App extends Component {
     this.setState({proposals: proposalArr});
   }
 
-  async createProposal(name) {
-    await this.state.contract.methods.submitProposal(name)
-      .send({from: this.state.account});
-    this.getProposals();
-  }
-
   async delegate(address) {
     await this.state.contract.methods.delegate(address)
       .send({from: this.state.account});
@@ -119,8 +112,7 @@ class App extends Component {
       <div>
         <Nav />
         <Hero 
-          {...this.state} 
-          createProposal={this.createProposal}
+          {...this.state}
           getProposals={this.getProposals}
           delegate={this.delegate}
         />

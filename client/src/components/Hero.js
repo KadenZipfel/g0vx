@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import Proposal from './Proposal';
 import Header from './Header';
+import ProposalForm from './ProposalForm';
 
 // This isn't really a hero lol
 class Hero extends Component {
@@ -12,21 +13,8 @@ class Hero extends Component {
       delegateName: ''
     }
 
-    this.handleProposalChange = this.handleProposalChange.bind(this);
-    this.handleProposalSubmit = this.handleProposalSubmit.bind(this);
     this.handleDelegateChange = this.handleDelegateChange.bind(this);
     this.handleDelegateSubmit = this.handleDelegateSubmit.bind(this);
-  }
-
-  handleProposalChange(e) {
-    this.setState({proposalName: e.target.value});
-  }
-
-  handleProposalSubmit(e) {
-    e.preventDefault();
-
-    this.props.createProposal(this.state.proposalName);
-    this.setState({proposalName: ''});
   }
 
   handleDelegateChange(e) {
@@ -58,15 +46,10 @@ class Hero extends Component {
     return(
       <div>
         <Header />
-        <form onSubmit={this.handleProposalSubmit}>
-          <input 
-            type="text" 
-            placeholder="Proposal" 
-            value={this.state.proposalName}
-            onChange={this.handleProposalChange} 
-          />
-          <button>Submit</button>
-        </form>
+        <ProposalForm 
+          {...this.props}
+          getProposals={this.props.getProposals} 
+        />
         <form onSubmit={this.handleDelegateSubmit}>
           <input 
             type="text" 
