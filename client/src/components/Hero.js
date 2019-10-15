@@ -3,31 +3,10 @@ import React, {Component} from 'react';
 import Proposal from './Proposal';
 import Header from './Header';
 import ProposalForm from './ProposalForm';
+import DelegateForm from './DelegateForm';
 
 // This isn't really a hero lol
 class Hero extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      proposalName: '',
-      delegateName: ''
-    }
-
-    this.handleDelegateChange = this.handleDelegateChange.bind(this);
-    this.handleDelegateSubmit = this.handleDelegateSubmit.bind(this);
-  }
-
-  handleDelegateChange(e) {
-    this.setState({delegateName: e.target.value});
-  }
-
-  handleDelegateSubmit(e) {
-    e.preventDefault();
-
-    this.props.delegate(this.state.delegateName);
-    this.setState({delegateName: ''});
-  }
-
   render() {
     let proposals = [];
     this.props.proposals.forEach(proposal => {
@@ -50,15 +29,10 @@ class Hero extends Component {
           {...this.props}
           getProposals={this.props.getProposals} 
         />
-        <form onSubmit={this.handleDelegateSubmit}>
-          <input 
-            type="text" 
-            placeholder="Delegate" 
-            value={this.state.delegateName}
-            onChange={this.handleDelegateChange} 
-          />
-          <button>Submit</button>
-        </form>
+        <DelegateForm
+          {...this.props}
+          delegate={this.props.delegate}
+        />
         <div>
           {proposals}
         </div>
