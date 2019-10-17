@@ -19,7 +19,7 @@ class App extends Component {
     }
 
     this.getProposals = this.getProposals.bind(this);
-    this.getVoter = this.getVoter.bind(this);
+    this.hasProposalEnded = this.hasProposalEnded.bind(this);
   }
 
   componentDidMount = async () => {
@@ -58,19 +58,17 @@ class App extends Component {
       }
     }, 1000);
 
-    this.getVoter();
-    this.getTimeLimit();
-    this.getProposals();
+    this.getProposals()
+      .then(() => {
+        this.getTimeLimit()
+          .then(() => {
+            this.hasProposalEnded();
+          });
+      });
   };
 
   componentWillUnmount() {
     clearInterval(this.accountInterval);
-  }
-
-  async getVoter() {
-    const account = await this.state.accounts[0];
-    const voter = await this.state.contract.methods.voters(account).call();
-    console.log(voter);
   }
 
   async getTimeLimit() {
@@ -83,14 +81,12 @@ class App extends Component {
     let proposalArr = [];
     for(let i = 0; i < proposalsLength; i++) {
       const proposal = await this.state.contract.methods.proposals(i).call();
-      console.log(proposal);
       const proposalObj = {
         id: proposal.id, 
         name: proposal.name,
-        timeLimit: proposal.timeLimit,
+        startTime: proposal.startTime,
         voteWeightFor: proposal.voteWeightFor,
         voteWeightAgainst: proposal.voteWeightAgainst,
-        ended: proposal.ended,
         result: proposal.result
       };
       proposalArr.push(proposalObj);
@@ -98,7 +94,38 @@ class App extends Component {
     this.setState({proposals: proposalArr});
   }
 
+  hasProposalEnded() {
+    let newProposalArray = [];
+    for(let i = 0; i < this.state.proposals.length; i++) {
+      const proposalObj = {
+        id: this.state.proposals[i].id, 
+        name: this.state.proposals[i].name,
+        startTime: this.state.proposals[i].startTime,
+        voteWeightFor: this.state.proposals[i].voteWeightFor,
+        voteWeightAgainst: this.state.proposals[i].voteWeightAgainst,
+        result: this.state.proposals[i].result
+      };
+      if((parseInt(proposalObj.startTime) + parseInt(this.state.timeLimit)) <= Math.floor(Date.now() / 1000)) {
+        proposalObj.ended = true;
+        this.toggleButtons(proposalObj.id);
+      } else {
+        proposalObj.ended = false;
+      }
+      newProposalArray.push(proposalObj);
+    };
 
+    this.setState({proposals: newProposalArray});
+  }
+
+  toggleButtons(id) {
+    const voteButtons = document.querySelectorAll(`.proposal__button--${id}`);
+    const resultButton = document.querySelector(`.proposal__result--${id}`);
+
+    voteButtons.forEach(button => {
+      button.classList.add('hidden');
+    });
+    resultButton.classList.remove('hidden');
+  }
 
   render() {
     if (!this.state.web3) {
@@ -111,6 +138,7 @@ class App extends Component {
           {...this.state}
           getProposals={this.getProposals}
           delegate={this.delegate}
+          toggleButtons={this.toggleButtons}
         />
       </div>
     );

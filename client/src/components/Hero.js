@@ -18,23 +18,13 @@ class Hero extends Component {
 
     this.startCountdown = this.startCountdown.bind(this);
   }
-  
+
   async startCountdown(id) {
     const time = (parseInt(this.props.timeLimit) + 15) * 1000
     setTimeout(() => {
       // Switch buttons
-      this.toggleButtons(id);
+      this.props.toggleButtons(id);
     }, time);
-  }
-
-  toggleButtons(id) {
-    const voteButtons = document.querySelectorAll(`.proposal__button--${id}`);
-    const resultButton = document.querySelector(`.proposal__result--${id}`);
-
-    voteButtons.forEach(button => {
-      button.classList.add('hidden');
-    });
-    resultButton.classList.remove('hidden');
   }
  
   render() {

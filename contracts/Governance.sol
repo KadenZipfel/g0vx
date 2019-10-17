@@ -9,7 +9,6 @@ contract Governance {
         uint voteWeightAgainst; // vote weight against
         uint startTime; // start time since epoch
         bool result; // result of proposal
-        bool ended; // has the proposal time run out?
     }
 
     struct Vote {
@@ -50,7 +49,6 @@ contract Governance {
     // Submit a proposal for others to vote on
     function submitProposal(string memory _name) public {
         proposals.push(Proposal({
-            ended: false,
             result: false,
             name: _name,
             id: nextId,
@@ -96,8 +94,6 @@ contract Governance {
         Proposal memory proposal = proposals[_proposalId];
         // Ensure the proposal duration is complete
         require((proposal.startTime + timeLimit) <= now, 'There is still time left in the proposal.');
-
-        proposals[_proposalId].ended = true;
 
         if(proposal.voteWeightFor > proposal.voteWeightAgainst) {
             proposals[_proposalId].result = true;
