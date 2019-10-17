@@ -29,8 +29,9 @@ class Proposal extends Component {
 
   handleResult() {
     this.props.contract.methods.result(this.props.id)
-      .call((err, result) => {
-        console.log(result);
+      .send({from: this.props.account})
+      .then(() => {
+        this.props.getProposals();
       });
   }
 
@@ -40,16 +41,22 @@ class Proposal extends Component {
         <p className="proposal__name">{this.props.name}</p>
         <div className="proposal__buttons">
           <button 
-            className="proposal__button proposal__button--for" 
+            className={'proposal__button proposal__button--for proposal__button--' + this.props.id}
             onClick={this.handleVoteFor}
           >
             Vote For
           </button>
           <button 
-            className="proposal__button proposal__button--against" 
+            className={'proposal__button proposal__button--against proposal__button--' + this.props.id}
             onClick={this.handleVoteAgainst}
           >
             Vote Against
+          </button>
+          <button 
+            onClick={this.handleResult}
+            className={'hidden proposal__result proposal__result--' + this.props.id}
+          >
+            Result
           </button>
         </div>
       </div>

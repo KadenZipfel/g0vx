@@ -26,9 +26,13 @@ class ProposalForm extends Component {
   }
 
   async createProposal(name) {
+    const id = this.props.proposals.length;
     await this.props.contract.methods.submitProposal(name)
-      .send({from: this.props.account});
-    this.props.getProposals();
+      .send({from: this.props.account})
+      .then(() => {
+        this.props.getProposals();
+        this.props.startCountdown(id);
+      });
   }
 
   render() {
@@ -43,7 +47,7 @@ class ProposalForm extends Component {
           value={this.state.proposalName}
           onChange={this.handleProposalChange} 
           className="proposal-form__input"
-          maxlength="255"
+          maxLength="255"
         ></textarea>
         <button className="proposal-form__button">
           Submit

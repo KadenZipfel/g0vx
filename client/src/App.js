@@ -67,7 +67,6 @@ class App extends Component {
     clearInterval(this.accountInterval);
   }
 
-  // Get voter to see whats going on with delegates
   async getVoter() {
     const account = await this.state.accounts[0];
     const voter = await this.state.contract.methods.voters(account).call();
@@ -79,7 +78,6 @@ class App extends Component {
     this.setState({timeLimit});
   }
 
-  // Finish this once we can create proposals
   async getProposals() {
     const proposalsLength = await this.state.contract.methods.getProposalsLength().call();
     let proposalArr = [];
@@ -91,12 +89,16 @@ class App extends Component {
         name: proposal.name,
         timeLimit: proposal.timeLimit,
         voteWeightFor: proposal.voteWeightFor,
-        voteWeightAgainst: proposal.voteWeightAgainst
+        voteWeightAgainst: proposal.voteWeightAgainst,
+        ended: proposal.ended,
+        result: proposal.result
       };
       proposalArr.push(proposalObj);
     }
     this.setState({proposals: proposalArr});
   }
+
+
 
   render() {
     if (!this.state.web3) {

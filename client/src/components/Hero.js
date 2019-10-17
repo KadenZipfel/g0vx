@@ -4,11 +4,39 @@ import Proposal from './Proposal';
 import Header from './Header';
 import ProposalForm from './ProposalForm';
 import DelegateForm from './DelegateForm';
+import Result from './Result';
 
 import '../layout/components/hero.sass';
 
 // This isn't really a hero lol
 class Hero extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      results: []
+    }
+
+    this.startCountdown = this.startCountdown.bind(this);
+  }
+  
+  async startCountdown(id) {
+    const time = (parseInt(this.props.timeLimit) + 15) * 1000
+    setTimeout(() => {
+      // Switch buttons
+      this.toggleButtons(id);
+    }, time);
+  }
+
+  toggleButtons(id) {
+    const voteButtons = document.querySelectorAll(`.proposal__button--${id}`);
+    const resultButton = document.querySelector(`.proposal__result--${id}`);
+
+    voteButtons.forEach(button => {
+      button.classList.add('hidden');
+    });
+    resultButton.classList.remove('hidden');
+  }
+ 
   render() {
     let proposals = [];
     this.props.proposals.forEach(proposal => {
@@ -24,6 +52,18 @@ class Hero extends Component {
       );
     });
 
+    let results = [];
+    this.state.results.forEach(result => {
+      results.push(
+        <Result
+          id={result.id}
+          key={result.id}
+          name={result.name}
+          result={result.result}
+        />
+      );
+    });
+
     return(
       <section className="hero">
         <Header />
@@ -31,6 +71,7 @@ class Hero extends Component {
           <ProposalForm 
             {...this.props}
             getProposals={this.props.getProposals} 
+            startCountdown={this.startCountdown}
           />
           <DelegateForm
             {...this.props}
@@ -39,6 +80,7 @@ class Hero extends Component {
         </div>
         <div>
           {proposals}
+          {results}
         </div>
       </section>
     );
