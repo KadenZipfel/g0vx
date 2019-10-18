@@ -1,9 +1,13 @@
 @import ../config/colors
+@import ../config/breakpoints
   
 .proposal-form
   width: 64%
   display: flex
   height: 92px
+  +media($breakpoint-lg)
+    width: 100%
+    margin-bottom: 8px
 
 .proposal-form__input
   height: 100%
@@ -23,3 +27,7 @@
   font-size: 28px
   border-radius: 0 8px 8px 0
   cursor: pointer
+  +media($breakpoint-md)
+    font-size: 20px
+  +media($breakpoint-md)
+    width: 33%
