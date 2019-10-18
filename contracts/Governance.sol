@@ -9,6 +9,7 @@ contract Governance {
         uint voteWeightAgainst; // vote weight against
         uint startTime; // start time since epoch
         bool result; // result of proposal
+        bool resulted; // has someone called the result?
     }
 
     struct Vote {
@@ -54,7 +55,8 @@ contract Governance {
             id: nextId,
             voteWeightFor: 0,
             voteWeightAgainst: 0,
-            startTime: now
+            startTime: now,
+            resulted: false
         }));
         nextId += 1;
     }
@@ -94,6 +96,8 @@ contract Governance {
         Proposal memory proposal = proposals[_proposalId];
         // Ensure the proposal duration is complete
         require((proposal.startTime + timeLimit) <= now, 'There is still time left in the proposal.');
+
+        proposals[_proposalId].resulted = true;
 
         if(proposal.voteWeightFor > proposal.voteWeightAgainst) {
             proposals[_proposalId].result = true;

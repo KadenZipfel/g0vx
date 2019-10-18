@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
 
+import '../layout/components/result.sass';
+
 class Result extends Component {
-  constructor(props) {
-    super(props);
-
-    this.getResult = this.getResult.bind(this);
-  }
-
-  getResult() {
+  renderResult() {
     if(this.props.result === true) {
       return 'Passed';
     } else {
@@ -22,7 +18,7 @@ class Result extends Component {
           {this.props.name}
         </p>
         <p className="result__result">
-          {this.getResult()}
+          {this.renderResult()}
         </p>
       </div>
     );

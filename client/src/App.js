@@ -19,7 +19,6 @@ class App extends Component {
     }
 
     this.getProposals = this.getProposals.bind(this);
-    this.hasProposalEnded = this.hasProposalEnded.bind(this);
   }
 
   componentDidMount = async () => {
@@ -58,13 +57,8 @@ class App extends Component {
       }
     }, 1000);
 
-    this.getProposals()
-      .then(() => {
-        this.getTimeLimit()
-          .then(() => {
-            this.hasProposalEnded();
-          });
-      });
+    this.getTimeLimit();
+    this.getProposals();
   };
 
   componentWillUnmount() {
@@ -87,44 +81,33 @@ class App extends Component {
         startTime: proposal.startTime,
         voteWeightFor: proposal.voteWeightFor,
         voteWeightAgainst: proposal.voteWeightAgainst,
-        result: proposal.result
-      };
-      proposalArr.push(proposalObj);
-    }
-    this.setState({proposals: proposalArr});
-  }
-
-  hasProposalEnded() {
-    let newProposalArray = [];
-    for(let i = 0; i < this.state.proposals.length; i++) {
-      const proposalObj = {
-        id: this.state.proposals[i].id, 
-        name: this.state.proposals[i].name,
-        startTime: this.state.proposals[i].startTime,
-        voteWeightFor: this.state.proposals[i].voteWeightFor,
-        voteWeightAgainst: this.state.proposals[i].voteWeightAgainst,
-        result: this.state.proposals[i].result
+        result: proposal.result,
+        resulted: proposal.resulted
       };
       if((parseInt(proposalObj.startTime) + parseInt(this.state.timeLimit)) <= Math.floor(Date.now() / 1000)) {
         proposalObj.ended = true;
-        this.toggleButtons(proposalObj.id);
       } else {
         proposalObj.ended = false;
       }
-      newProposalArray.push(proposalObj);
-    };
-
-    this.setState({proposals: newProposalArray});
+      proposalArr.push(proposalObj);
+    }
+    this.setState({proposals: proposalArr});
+    console.log(this.state.proposals);
+    this.toggleButtons();
   }
 
-  toggleButtons(id) {
-    const voteButtons = document.querySelectorAll(`.proposal__button--${id}`);
-    const resultButton = document.querySelector(`.proposal__result--${id}`);
+  toggleButtons() {
+    this.state.proposals.forEach(proposal => {
+      if(proposal.ended && proposal.resulted === false) {
+        const voteButtons = document.querySelectorAll(`.proposal__button--${proposal.id}`);
+        const resultButton = document.querySelector(`.proposal__result--${proposal.id}`);
 
-    voteButtons.forEach(button => {
-      button.classList.add('hidden');
+        voteButtons.forEach(button => {
+          button.classList.add('hidden');
+        });
+        resultButton.classList.remove('hidden');
+      }
     });
-    resultButton.classList.remove('hidden');
   }
 
   render() {
@@ -139,6 +122,8 @@ class App extends Component {
           getProposals={this.getProposals}
           delegate={this.delegate}
           toggleButtons={this.toggleButtons}
+          hasProposalEnded={this.hasProposalEnded}
+          proposalResulted={this.proposalResulted}
         />
       </div>
     );

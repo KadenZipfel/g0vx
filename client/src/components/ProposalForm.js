@@ -26,12 +26,10 @@ class ProposalForm extends Component {
   }
 
   async createProposal(name) {
-    const id = this.props.proposals.length;
     await this.props.contract.methods.submitProposal(name)
       .send({from: this.props.account})
       .then(() => {
-        this.props.getProposals();
-        this.props.startCountdown(id);
+        this.props.getProposals()
       });
   }
 
