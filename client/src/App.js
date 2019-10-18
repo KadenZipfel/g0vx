@@ -19,6 +19,7 @@ class App extends Component {
     }
 
     this.getProposals = this.getProposals.bind(this);
+    this.formatTime = this.formatTime.bind(this);
   }
 
   componentDidMount = async () => {
@@ -86,8 +87,12 @@ class App extends Component {
       };
       if((parseInt(proposalObj.startTime) + parseInt(this.state.timeLimit)) <= Math.floor(Date.now() / 1000)) {
         proposalObj.ended = true;
+        proposalObj.timeLeft = false;
       } else {
         proposalObj.ended = false;
+        // Get time here
+        const time = (parseInt(proposalObj.startTime) + parseInt(this.state.timeLimit) - Math.floor(Date.now() / 1000));
+        proposalObj.timeLeft = this.formatTime(time);
       }
       proposalArr.push(proposalObj);
     }
@@ -108,6 +113,20 @@ class App extends Component {
         resultButton.classList.remove('hidden');
       }
     });
+  }
+
+  formatTime(time) {
+    const date = new Date(time * 1000);
+    const days = date.getUTCDate() - 1;
+    const hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes();
+    const seconds = date.getSeconds();
+    return {
+      days, 
+      hours,
+      minutes,
+      seconds
+    }
   }
 
   render() {

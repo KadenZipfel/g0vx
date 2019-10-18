@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import Time from './Time';
+
 import '../layout/components/proposal.sass';
 
 class Proposal extends Component {
@@ -39,6 +41,7 @@ class Proposal extends Component {
     return (
       <div className="proposal">
         <p className="proposal__name">{this.props.name}</p>
+        <Time timeLeft={this.props.timeLeft} />
         <div className="proposal__buttons">
           <button 
             className={'proposal__button proposal__button--for proposal__button--' + this.props.id}

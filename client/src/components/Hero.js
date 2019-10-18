@@ -32,6 +32,7 @@ class Hero extends Component {
             key={proposal.id}
             voteWeightFor={proposal.voteWeightFor} 
             voteWeightAgainst={proposal.voteWeightAgainst}
+            timeLeft={proposal.timeLeft}
           />
         );
       }
