@@ -74,7 +74,10 @@ contract Governance {
         if(voter.delegatees.length > 0) {
             uint weight = msg.sender.balance;
             for(uint i = 0; i < voter.delegatees.length; i++) {
-                weight += voter.delegatees[i].balance;
+                // Only add delegatee weight if they haven't yet voted on this proposal
+                if(!voters[voter.delegatees[i]].votes[_proposalId].voted) {
+                    weight += voter.delegatees[i].balance;
+                }
             }
             voters[msg.sender].weight = weight;
         } else {
