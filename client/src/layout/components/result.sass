@@ -1,4 +1,5 @@
 @import ../config/colors
+@import ../config/breakpoints
   
 .result
   height: 75px
@@ -11,13 +12,22 @@
   padding-left: 24px
   border-radius: 8px
   margin-bottom: 38px
+  +media($breakpoint-md)
+    margin-bottom: 16px
 
 .result__name
   font-size: 22px
   color: $color-black
+  +media($breakpoint-sm)
+    font-size: 18px
 
 .result__result
   width: 20%
   text-align: center
   font-size: 22px
   color: $color-black
+  +media($breakpoint-lg)
+    min-width: 25%
+  +media($breakpoint-md)
+    font-size: 20px
+    min-width: 33%

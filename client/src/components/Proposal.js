@@ -59,7 +59,7 @@ class Proposal extends Component {
             onClick={this.handleResult}
             className={'hidden proposal__result proposal__result--' + this.props.id}
           >
-            Get Result
+            Result
           </button>
         </div>
       </div>
