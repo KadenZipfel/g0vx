@@ -37,6 +37,17 @@ class Hero extends Component {
       }
     });
 
+    let proposalHeader;
+    let resultHeader;
+
+    if(proposals.length > 0) {
+      proposalHeader = 'Proposals';
+    }
+
+    if(results.length > 0) {
+      resultHeader = 'Results';
+    }
+
     return(
       <section className="hero">
         <Header />
@@ -53,7 +64,13 @@ class Hero extends Component {
           />
         </div>
         <div>
+          <h4 className="hero__header">
+            {proposalHeader}
+          </h4>
           {proposals}
+          <h4 className="hero__header">
+            {resultHeader}
+          </h4>
           {results}
         </div>
       </section>
