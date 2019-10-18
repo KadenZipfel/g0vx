@@ -1,5 +1,11 @@
+@import ../config/breakpoints
+  
 .hero
   padding: 0 120px
+  +media($breakpoint-md)
+    padding: 0 24px
+  +media($breakpoint-sm)
+    padding: 0 16px
   
 .hero__forms
   display: flex
