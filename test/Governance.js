@@ -33,4 +33,12 @@ contract('Governance', accounts => {
     const proposal = await governance.proposals(0);
     assert(proposal.voteWeightAgainst > 0);
   });
+
+  it('Should properly delegate', async () => {
+    await governance.delegate(accounts[3], {from: accounts[2]});
+    await governance.submitProposal("Cat");
+    await governance.submitVote(1, true, {from: accounts[3]});
+    const proposal = await governance.proposals(1);
+    assert(proposal.voteWeightFor > 100000000000000000000);
+  })
 });
