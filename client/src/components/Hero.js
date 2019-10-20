@@ -70,11 +70,11 @@ class Hero extends Component {
           <h4 className="hero__header">
             {proposalHeader}
           </h4>
-          {proposals}
+          {proposals.reverse()}
           <h4 className="hero__header">
             {resultHeader}
           </h4>
-          {results}
+          {results.reverse()}
         </div>
       </section>
     );
