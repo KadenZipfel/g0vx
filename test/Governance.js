@@ -27,4 +27,10 @@ contract('Governance', accounts => {
         'You have already voted on this proposal.'
       );
   });
+
+  it('Should allow users to vote against proposals', async () => {
+    await governance.submitVote(0, false, {from: accounts[1]});
+    const proposal = await governance.proposals(0);
+    assert(proposal.voteWeightAgainst > 0);
+  });
 });
