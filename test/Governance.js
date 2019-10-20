@@ -1,4 +1,5 @@
 const Governance = artifacts.require('Governance');
+const { expectRevert } = require('openzeppelin-test-helpers');
 
 contract('Governance', accounts => {
   let governance;
@@ -17,5 +18,13 @@ contract('Governance', accounts => {
     await governance.submitVote(0, true, {from: accounts[0]});
     const proposal = await governance.proposals(0);
     assert(proposal.voteWeightFor > 0);
+  });
+
+  it('Should prevent users from voting twice on the same proposal', 
+    async() => {
+      await expectRevert(
+        governance.submitVote(0, true, {from: accounts[0]}),
+        'You have already voted on this proposal.'
+      );
   });
 });
