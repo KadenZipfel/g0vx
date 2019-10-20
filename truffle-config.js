@@ -21,6 +21,12 @@ module.exports = {
         return new HDWalletProvider(keys.privKey, "https://rinkeby.infura.io/v3/37c378bac13f456ba63d4126c8237c38");
       },
       network_id: 4
+    },
+    mainnet: {
+      provider: () => {
+        return new HDWalletProvider(keys.privKey, "https://mainnet.infura.io/v3/37c378bac13f456ba63d4126c8237c38");
+      },
+      network_id: 1
     }
   }
 };
