@@ -27,9 +27,21 @@ class ProposalForm extends Component {
 
   async createProposal(name) {
     await this.props.contract.methods.submitProposal(name)
-      .send({from: this.props.account})
-      .then(() => {
-        this.props.getProposals()
+      .send({from: this.props.account}, () => {
+        this.props.setMessage('Transaction Pending...');
+      }).on('confirmation', (number) => {
+        if(number === 0) {
+          this.props.setMessage('Transaction Confirmed!');
+          this.props.getProposals();
+          setTimeout(() => {
+            this.props.clearMessage();
+          }, 5000);
+        }
+      }).on('error', () => {
+        this.props.setMessage('Transaction Failed.');
+        setTimeout(() => {
+          this.props.clearMessage();
+        });
       });
   }
 

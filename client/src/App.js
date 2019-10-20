@@ -4,6 +4,7 @@ import getWeb3 from "./utils/getWeb3";
 
 import Nav from './components/Nav';
 import Hero from './components/Hero';
+import Message from './components/Message';
 
 import './layout/config/_base.sass';
 
@@ -15,11 +16,14 @@ class App extends Component {
       account: null,
       contract: null,
       proposals: [],
-      timeLimit: null
+      timeLimit: null,
+      message: null
     }
 
     this.getProposals = this.getProposals.bind(this);
     this.formatTime = this.formatTime.bind(this);
+    this.setMessage = this.setMessage.bind(this);
+    this.clearMessage = this.clearMessage.bind(this);
   }
 
   componentDidMount = async () => {
@@ -129,6 +133,19 @@ class App extends Component {
     }
   }
 
+  setMessage(newMessage) {
+    this.setState({
+      message: newMessage
+    });
+    console.log(this.state.message);
+  }
+
+  clearMessage() {
+    this.setState({
+      message: null
+    });
+  }
+
   render() {
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
@@ -143,7 +160,10 @@ class App extends Component {
           toggleButtons={this.toggleButtons}
           hasProposalEnded={this.hasProposalEnded}
           proposalResulted={this.proposalResulted}
+          setMessage={this.setMessage}
+          clearMessage={this.clearMessage}
         />
+        <Message message={this.state.message} />
       </div>
     );
   }

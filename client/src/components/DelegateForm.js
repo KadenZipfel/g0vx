@@ -27,7 +27,19 @@ class DelegateForm extends Component {
 
   async delegate(address) {
     await this.props.contract.methods.delegate(address)
-      .send({from: this.props.account});
+      .send({from: this.props.account}, () => {
+        this.props.setMessage('Transaction Pending...');
+      }).on('confirmation', () => {
+        this.props.setMessage('Transaction Confirmed!');
+        setTimeout(() => {
+          this.props.clearMessage();
+        }, 5000);
+      }).on('error', () => {
+        this.props.setMessage('Transaction Failed.');
+        setTimeout(() => {
+          this.props.clearMessage();
+        });
+      });
   }
 
   render() {

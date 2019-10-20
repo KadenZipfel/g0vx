@@ -33,6 +33,8 @@ class Hero extends Component {
             voteWeightFor={proposal.voteWeightFor} 
             voteWeightAgainst={proposal.voteWeightAgainst}
             timeLeft={proposal.timeLeft}
+            setMessage={this.props.setMessage}
+            clearMessage={this.props.clearMessage}
           />
         );
       }

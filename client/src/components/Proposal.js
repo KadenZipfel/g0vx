@@ -15,25 +15,61 @@ class Proposal extends Component {
 
   handleVoteFor() {
     this.props.contract.methods.submitVote(this.props.id, true)
-      .send({from: this.props.account})
-      .then(() => {
-        this.props.getProposals();
+      .send({from: this.props.account}, () => {
+        this.props.setMessage('Transaction Pending...');
+      }).on('confirmation', (number) => {
+        if(number === 0) {
+          this.props.setMessage('Transaction Confirmed!');
+          this.props.getProposals();
+          setTimeout(() => {
+            this.props.clearMessage();
+          }, 5000);
+        }
+      }).on('error', () => {
+        this.props.setMessage('Transaction Failed.');
+        setTimeout(() => {
+          this.props.clearMessage();
+        });
       });
   }
 
   handleVoteAgainst() {
     this.props.contract.methods.submitVote(this.props.id, false)
-      .send({from: this.props.account})
-      .then(() => {
-        this.props.getProposals();
+      .send({from: this.props.account}, () => {
+        this.props.setMessage('Transaction Pending...');
+      }).on('confirmation', (number) => {
+        if(number === 0) {
+          this.props.setMessage('Transaction Confirmed!');
+          this.props.getProposals();
+          setTimeout(() => {
+            this.props.clearMessage();
+          }, 5000);
+        }
+      }).on('error', () => {
+        this.props.setMessage('Transaction Failed.');
+        setTimeout(() => {
+          this.props.clearMessage();
+        });
       });
   }
 
   handleResult() {
     this.props.contract.methods.result(this.props.id)
-      .send({from: this.props.account})
-      .then(() => {
-        this.props.getProposals();
+      .send({from: this.props.account}, () => {
+        this.props.setMessage('Transaction Pending...');
+      }).on('confirmation', (number) => {
+        if(number === 0) {
+          this.props.setMessage('Transaction Confirmed!');
+          this.props.getProposals();
+          setTimeout(() => {
+            this.props.clearMessage();
+          }, 5000);
+        }
+      }).on('error', () => {
+        this.props.setMessage('Transaction Failed.');
+        setTimeout(() => {
+          this.props.clearMessage();
+        });
       });
   }
 
