@@ -5,6 +5,7 @@ import getWeb3 from "./utils/getWeb3";
 import Nav from './components/Nav';
 import Hero from './components/Hero';
 import Message from './components/Message';
+import Footer from './components/Footer';
 
 import './layout/config/_base.sass';
 
@@ -164,6 +165,7 @@ class App extends Component {
           clearMessage={this.clearMessage}
         />
         <Message message={this.state.message} />
+        <Footer />
       </div>
     );
   }
