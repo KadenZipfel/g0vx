@@ -9362,8 +9362,8 @@
     "4": {
       "events": {},
       "links": {},
-      "address": "0x9d3bf21D39CaedE77a8b2b080A4440E0f51C5126",
-      "transactionHash": "0x7713bfbf799c6ebfa9dc4b5d588ca20393a289b7645152e7d037469be122fe30"
+      "address": "0x8Ce509B15894a3548E7142E019b5450662e665A6",
+      "transactionHash": "0xad6048ff3aea091c2f52399b023ee841d132c205a36df4c02629106ca0561a7e"
     },
     "5777": {
       "events": {},
@@ -9373,7 +9373,7 @@
     }
   },
   "schemaVersion": "3.0.16",
-  "updatedAt": "2019-10-18T23:59:35.192Z",
+  "updatedAt": "2019-10-21T04:15:59.069Z",
   "devdoc": {
     "methods": {},
     "title": "Governance Protocol"
