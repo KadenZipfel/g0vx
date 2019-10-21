@@ -49,6 +49,13 @@ contract('Governance', accounts => {
     );
   });
 
+  it('Should not allow user to vote after delegating', async () => {
+    await expectRevert(
+      governance.submitVote(0, true, {from: accounts[2]}),
+      'You cannot vote if you have already delegated.'
+    );
+  });
+
   it('Should not return result before time is up', async () => {
     await expectRevert(
       governance.result(0, {from: accounts[0]}),
