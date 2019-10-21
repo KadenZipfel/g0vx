@@ -40,5 +40,12 @@ contract('Governance', accounts => {
     await governance.submitVote(1, true, {from: accounts[3]});
     const proposal = await governance.proposals(1);
     assert(proposal.voteWeightFor > 100000000000000000000);
-  })
+  });
+
+  it('Should not return result before time is up', async () => {
+    await expectRevert(
+      governance.result(0, {from: accounts[0]}),
+      'There is still time left in the proposal.'
+    );
+  });
 });
