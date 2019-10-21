@@ -62,4 +62,14 @@ contract('Governance', accounts => {
       'There is still time left in the proposal.'
     );
   });
+
+  it('Should not allow user to vote after time is up', async () => {
+    // 16 second timeout to wait for 15 second time limit
+    setTimeout(async () => {
+      await expectRevert(
+        governance.submitVote(0, true, {from: accounts[4]}),
+        'The voting period has expired.'
+      );
+    }, 16000);
+  });
 });
