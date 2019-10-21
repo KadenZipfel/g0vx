@@ -25,7 +25,7 @@ Try it yourself (Rinkeby):
 - React front-end
 - Seamless contract interaction
 - Flawless mobile optimization
-- Complete test suite (pending)
+- Complete test suite
 
 ## Getting Started
 
