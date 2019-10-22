@@ -20,7 +20,7 @@ Try it yourself (Rinkeby):
 - Provably fair, trustless, decentralized
 - Create, vote, and delegate proposals
 - Transaction lifecycle notifications, i.e. 'Transaction Pending...', 'Transaction Confirmed'
-- Solidity 0.5.0
+- Solidity 0.5.8
 - Security audit (pending)
 - React front-end
 - Seamless contract interaction
