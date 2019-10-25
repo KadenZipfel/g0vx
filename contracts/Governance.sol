@@ -26,10 +26,10 @@ contract Governance {
     }
 
     Proposal[] public proposals;
-    mapping(address => Voter) public voters;
+    mapping(address => Voter) private voters;
 
     // Next id to be used for proposals
-    uint nextId;
+    uint private nextId;
 
     // Time limit to vote on proposals (in seconds)
     uint public timeLimit;
