@@ -1,6 +1,6 @@
 # G0VX
 
-G0VX is a Decentralized Governance Proposal. Create and vote on organization proposals.
+G0VX is a decentralized governance protocol. Vote on governance proposals based on token balance.
 
 ## Example
 
@@ -77,12 +77,12 @@ module.exports = {
   }
 };
 ```
-- In `migrations/2_deploy_contracts.js`, set the contract time limit (The length of time users can vote on a proposal in seconds)
+- In `migrations/2_deploy_contracts.js`, set the contract time limit (The length of time users can vote on a proposal in seconds) and the token address.
 ```
 var Governance = artifacts.require("./Governance.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(Governance, TIME_LIMIT_HERE_IN_SECONDS);
+  deployer.deploy(Governance, TIME_LIMIT_IN_SECONDS, TOKEN_ADDRESS);
 };
 ```
 - From the root directory, run `npm install`
