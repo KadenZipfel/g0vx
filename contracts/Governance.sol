@@ -41,6 +41,9 @@ contract Governance {
     // Time limit to vote on proposals (in seconds)
     uint public timeLimit;
 
+    // Used for secure delegate voting weight inclusion
+    uint internal nextDelegateeIndex;
+
     // Set time limit and token contract address
     constructor(uint _timeLimit, address _token) public {
         timeLimit = _timeLimit;
@@ -81,13 +84,14 @@ contract Governance {
 
         if(voter.delegatees.length > 0) {
             uint weight = token.balanceOf(msg.sender);
-            // INSECURE - Should not loop over array of unknown length
-            for(uint i = 0; i < voter.delegatees.length; i++) {
+            uint i = nextDelegateeIndex;
+            while(i < voter.delegatees.length) {
                 // Only add delegatee weight if they haven't yet voted on this proposal
                 if(!voters[voter.delegatees[i]].votes[_proposalId].voted) {
                     weight += token.balanceOf(voter.delegatees[i]);
                 }
             }
+            nextDelegateeIndex = i;
             voters[msg.sender].weight = weight;
         } else {
             voters[msg.sender].weight = token.balanceOf(msg.sender);
