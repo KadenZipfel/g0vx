@@ -9347,8 +9347,9 @@
       "transactionHash": "0x49e44d1e657ea8c6ecd3bc4613047f23970a5d1314aa46ceb0e65f6f844e54ee"
     }
   },
-  "schemaVersion": "3.0.16",
-  "updatedAt": "2019-10-25T20:09:47.569Z",
+  "schemaVersion": "3.0.17",
+  "updatedAt": "2019-11-28T23:03:29.366Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {},
     "title": "Governance Protocol"

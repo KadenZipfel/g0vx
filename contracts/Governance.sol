@@ -1,5 +1,9 @@
 pragma solidity 0.5.8;
 
+interface ERC20 {
+    function balanceOf(address guy) external view returns (uint);
+}
+
 /// @title Governance Protocol
 contract Governance {
     struct Proposal {
@@ -24,6 +28,9 @@ contract Governance {
         mapping(uint => Vote) votes; // map proposal id to vote
         bool delegated; // has the voter already delegated?
     }
+    
+    // ERC20 token
+    ERC20 token;
 
     Proposal[] public proposals;
     mapping(address => Voter) private voters;
@@ -34,9 +41,10 @@ contract Governance {
     // Time limit to vote on proposals (in seconds)
     uint public timeLimit;
 
-    // Upon contract instantiation, set time limit
-    constructor(uint _timeLimit) public {
+    // Set time limit and token contract address
+    constructor(uint _timeLimit, address _token) public {
         timeLimit = _timeLimit;
+        token = ERC20(_token);
     }
 
     // Pick a delegate to pass your voting weight on to
@@ -72,16 +80,17 @@ contract Governance {
         require(voters[msg.sender].delegated == false, 'You cannot vote if you have already delegated.');
 
         if(voter.delegatees.length > 0) {
-            uint weight = msg.sender.balance;
+            uint weight = token.balanceOf(msg.sender);
+            // INSECURE - Should not loop over array of unknown length
             for(uint i = 0; i < voter.delegatees.length; i++) {
                 // Only add delegatee weight if they haven't yet voted on this proposal
                 if(!voters[voter.delegatees[i]].votes[_proposalId].voted) {
-                    weight += voter.delegatees[i].balance;
+                    weight += token.balanceOf(voter.delegatees[i]);
                 }
             }
             voters[msg.sender].weight = weight;
         } else {
-            voters[msg.sender].weight = msg.sender.balance;
+            voters[msg.sender].weight = token.balanceOf(msg.sender);
         }
 
         vote.voted = true;
