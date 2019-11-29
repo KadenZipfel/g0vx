@@ -53,7 +53,7 @@ class Hero extends Component {
 
     return(
       <section className="hero">
-        <Header />
+        <Header token={this.props.token} />
         <div className="hero__forms">
           <ProposalForm 
             {...this.props}

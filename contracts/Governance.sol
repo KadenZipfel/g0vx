@@ -28,9 +28,9 @@ contract Governance {
         mapping(uint => Vote) votes; // map proposal id to vote
         bool delegated; // has the voter already delegated?
     }
-    
+
     // ERC20 token
-    ERC20 token;
+    ERC20 public token;
 
     Proposal[] public proposals;
     mapping(address => Voter) private voters;

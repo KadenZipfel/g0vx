@@ -18,13 +18,15 @@ class App extends Component {
       contract: null,
       proposals: [],
       timeLimit: null,
-      message: null
+      message: null,
+      token: null
     }
 
     this.getProposals = this.getProposals.bind(this);
     this.formatTime = this.formatTime.bind(this);
     this.setMessage = this.setMessage.bind(this);
     this.clearMessage = this.clearMessage.bind(this);
+    this.getTokenName = this.getTokenName.bind(this);
   }
 
   componentDidMount = async () => {
@@ -65,6 +67,7 @@ class App extends Component {
 
     this.getTimeLimit();
     this.getProposals();
+    this.getTokenName();
   };
 
   componentWillUnmount() {
@@ -102,7 +105,6 @@ class App extends Component {
       proposalArr.push(proposalObj);
     }
     this.setState({proposals: proposalArr});
-    console.log(this.state.proposals);
     this.toggleButtons();
   }
 
@@ -118,6 +120,23 @@ class App extends Component {
         resultButton.classList.remove('hidden');
       }
     });
+  }
+
+  async getTokenName() {
+    const tokenAddress = await this.state.contract.methods.token().call();
+
+    const xhr = new XMLHttpRequest();
+    
+    xhr.open('GET', `https://api.etherscan.io/api?module=account&action=tokentx&contractaddress=${tokenAddress}&page=1&offset=1`, true);
+    xhr.send();
+
+    xhr.onreadystatechange = (e) => {
+      if(xhr.readyState === 4 && xhr.status === 200) {
+        const response = JSON.parse(xhr.responseText);
+        const tokenName = response.result[0].tokenName;
+        this.setState({token: tokenName});
+      }
+    }
   }
 
   formatTime(time) {
