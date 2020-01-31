@@ -127,7 +127,9 @@ class App extends Component {
 
     const xhr = new XMLHttpRequest();
     
-    xhr.open('GET', `https://api.etherscan.io/api?module=account&action=tokentx&contractaddress=${tokenAddress}&page=1&offset=1`, true);
+    // Set to Ropsten for testing
+    // For mainnet usage, use `api.etherscan.io`
+    xhr.open('GET', `https://api-ropsten.etherscan.io/api?module=account&action=tokentx&contractaddress=${tokenAddress}&page=1&offset=1`, true);
     xhr.send();
 
     xhr.onreadystatechange = (e) => {
@@ -135,6 +137,7 @@ class App extends Component {
         const response = JSON.parse(xhr.responseText);
         const tokenName = response.result[0].tokenName;
         this.setState({token: tokenName});
+        console.log(this.state.token);
       }
     }
   }
