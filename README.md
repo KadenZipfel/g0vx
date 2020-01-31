@@ -10,15 +10,13 @@ Try it yourself (Rinkeby):
 - Download metamask
 - Switch to Rinkeby test network
 - Get some test ether from a faucet
-- Create a proposals
-- Delegate your voting power
+- Create proposals
 - Vote for proposals
 - View proposal results
 
 ## Features
 
 - Provably fair, trustless, decentralized
-- Create, vote, and delegate proposals
 - Transaction lifecycle notifications, i.e. 'Transaction Pending...', 'Transaction Confirmed'
 - Solidity 0.5.8
 - Security audit (pending)
