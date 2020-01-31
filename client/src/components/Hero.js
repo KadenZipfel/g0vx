@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import Proposal from './Proposal';
 import Header from './Header';
 import ProposalForm from './ProposalForm';
-import DelegateForm from './DelegateForm';
 import Result from './Result';
 
 import '../layout/components/hero.sass';
@@ -60,10 +59,6 @@ class Hero extends Component {
             getProposals={this.props.getProposals} 
             startCountdown={this.startCountdown}
             hasProposalEnded={this.props.hasProposalEnded}
-          />
-          <DelegateForm
-            {...this.props}
-            delegate={this.props.delegate}
           />
         </div>
         <div>

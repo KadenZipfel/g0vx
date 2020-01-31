@@ -178,7 +178,6 @@ class App extends Component {
         <Hero 
           {...this.state}
           getProposals={this.getProposals}
-          delegate={this.delegate}
           toggleButtons={this.toggleButtons}
           hasProposalEnded={this.hasProposalEnded}
           proposalResulted={this.proposalResulted}

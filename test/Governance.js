@@ -34,28 +34,6 @@ contract('Governance', accounts => {
     assert(proposal.voteWeightAgainst > 0);
   });
 
-  it('Should properly delegate', async () => {
-    await governance.delegate(accounts[3], {from: accounts[2]});
-    await governance.submitProposal("Cat");
-    await governance.submitVote(1, true, {from: accounts[3]});
-    const proposal = await governance.proposals(1);
-    assert(proposal.voteWeightFor > 100000000000000000000);
-  });
-
-  it('Should not allow same account to delegate twice', async () => {
-    await expectRevert(
-      governance.delegate(accounts[4], {from: accounts[2]}),
-      'You can only delegate once.'
-    );
-  });
-
-  it('Should not allow user to vote after delegating', async () => {
-    await expectRevert(
-      governance.submitVote(0, true, {from: accounts[2]}),
-      'You cannot vote if you have already delegated.'
-    );
-  });
-
   it('Should not return result before time is up', async () => {
     await expectRevert(
       governance.result(0, {from: accounts[0]}),
