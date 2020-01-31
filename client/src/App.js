@@ -137,7 +137,6 @@ class App extends Component {
         const response = JSON.parse(xhr.responseText);
         const tokenName = response.result[0].tokenName;
         this.setState({token: tokenName});
-        console.log(this.state.token);
       }
     }
   }

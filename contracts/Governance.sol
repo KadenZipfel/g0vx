@@ -23,10 +23,8 @@ contract Governance {
     }
 
     struct Voter {
-        address[] delegatees; // voter that delegated weight to this address
         uint weight; // based on amount of funds locked in contract
         mapping(uint => Vote) votes; // map proposal id to vote
-        bool delegated; // has the voter already delegated?
     }
 
     // ERC20 token
@@ -41,21 +39,10 @@ contract Governance {
     // Time limit to vote on proposals (in seconds)
     uint public timeLimit;
 
-    // Used for secure delegate voting weight inclusion
-    uint internal nextDelegateeIndex;
-
     // Set time limit and token contract address
     constructor(uint _timeLimit, address _token) public {
         timeLimit = _timeLimit;
         token = ERC20(_token);
-    }
-
-    // Pick a delegate to pass your voting weight on to
-    // Delegated voting power is only used for future votes
-    function delegate(address _delegate) public {
-        require(voters[msg.sender].delegated == false, 'You can only delegate once.');
-        voters[msg.sender].delegated = true;
-        voters[_delegate].delegatees.push(msg.sender);
     }
 
     // Submit a proposal for others to vote on
@@ -79,23 +66,7 @@ contract Governance {
         require(vote.voted == false, 'You have already voted on this proposal.');
         require(proposals[_proposalId].startTime + timeLimit > now, 'The voting period has expired.');
 
-        Voter memory voter = voters[msg.sender];
-        require(voters[msg.sender].delegated == false, 'You cannot vote if you have already delegated.');
-
-        if(voter.delegatees.length > 0) {
-            uint weight = token.balanceOf(msg.sender);
-            uint i = nextDelegateeIndex;
-            while(i < voter.delegatees.length) {
-                // Only add delegatee weight if they haven't yet voted on this proposal
-                if(!voters[voter.delegatees[i]].votes[_proposalId].voted) {
-                    weight += token.balanceOf(voter.delegatees[i]);
-                }
-            }
-            nextDelegateeIndex = i;
-            voters[msg.sender].weight = weight;
-        } else {
-            voters[msg.sender].weight = token.balanceOf(msg.sender);
-        }
+        voters[msg.sender].weight = token.balanceOf(msg.sender);
 
         vote.voted = true;
         vote.support = _support;
