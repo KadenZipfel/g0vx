@@ -19,7 +19,8 @@ class App extends Component {
       proposals: [],
       timeLimit: null,
       message: null,
-      token: null
+      token: null,
+      balance: null
     }
 
     this.getProposals = this.getProposals.bind(this);
@@ -68,6 +69,7 @@ class App extends Component {
     this.getTimeLimit();
     this.getProposals();
     this.getTokenName();
+    this.getTokenBalance();
   };
 
   componentWillUnmount() {
@@ -141,6 +143,25 @@ class App extends Component {
         this.setState({token: tokenName});
       }
     }
+  }
+
+  async getTokenBalance() {
+    const tokenAddress = await this.state.contract.methods.token().call();
+
+    const xhr = new XMLHttpRequest();
+
+    setTimeout(() => {
+      xhr.open('GET', `https://api-ropsten.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${tokenAddress}&address=${this.state.account}`, true);
+      xhr.send();
+
+      xhr.onreadystatechange = (e) => {
+        if(xhr.readyState === 4 && xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          const balance = this.state.web3.utils.fromWei(response.result);
+          this.setState({balance});
+        }
+      }
+    }, 1000);
   }
 
   formatTime(time) {

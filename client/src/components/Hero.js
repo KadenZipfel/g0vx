@@ -62,6 +62,14 @@ class Hero extends Component {
             hasProposalEnded={this.props.hasProposalEnded}
           />
         </div>
+        <div className="hero__user">
+          <p className="hero__address">
+            {this.props.account}
+          </p>
+          <p className="hero__balance">
+            {this.props.balance} {this.props.token}
+          </p>
+        </div>
         <div>
           <h4 className="hero__header">
             {proposalHeader}
