@@ -7,7 +7,8 @@ interface ERC20 {
 /// @title Governance Protocol
 contract Governance {
     struct Proposal {
-        string name; // proposal name
+        bytes title; // proposal title
+        bytes description; // proposal description
         uint id; // proposal id
         uint voteWeightFor; // vote weight in support
         uint voteWeightAgainst; // vote weight against
@@ -46,10 +47,11 @@ contract Governance {
     }
 
     // Submit a proposal for others to vote on
-    function submitProposal(string memory _name) public {
+    function submitProposal(bytes memory _title, bytes memory _description) public {
         proposals.push(Proposal({
             result: false,
-            name: _name,
+            title: _title,
+            description: _description,
             id: nextId,
             voteWeightFor: 0,
             voteWeightAgainst: 0,

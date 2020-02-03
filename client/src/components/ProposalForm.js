@@ -6,27 +6,39 @@ class ProposalForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      proposalName: ''
+      proposalName: '',
+      proposalDescription: ''
     }
 
-    this.handleProposalChange = this.handleProposalChange.bind(this);
+    this.handleProposalNameChange = this.handleProposalNameChange.bind(this);
+    this.handleProposalDescriptionChange = this.handleProposalDescriptionChange.bind(this);
     this.handleProposalSubmit = this.handleProposalSubmit.bind(this);
     this.createProposal = this.createProposal.bind(this);
   }
 
-  handleProposalChange(e) {
+  handleProposalNameChange(e) {
     this.setState({proposalName: e.target.value});
+  }
+
+  handleProposalDescriptionChange(e) {
+    this.setState({proposalDescription: e.target.value});
   }
 
   handleProposalSubmit(e) {
     e.preventDefault();
 
-    this.createProposal(this.state.proposalName);
-    this.setState({proposalName: ''});
+    console.log(this.props.web3.utils.asciiToHex(this.state.proposalName));
+
+    this.createProposal(
+      // This part is working
+      this.props.web3.utils.asciiToHex(this.state.proposalName),
+      this.props.web3.utils.asciiToHex(this.state.proposalDescription)
+    );
+    this.setState({proposalName: '', proposalDescription: ''});
   }
 
-  async createProposal(name) {
-    await this.props.contract.methods.submitProposal(name)
+  async createProposal(title, description) {
+    await this.props.contract.methods.submitProposal(title, description)
       .send({from: this.props.account}, () => {
         this.props.setMessage('Transaction Pending...');
       }).on('confirmation', (number) => {
@@ -51,11 +63,18 @@ class ProposalForm extends Component {
         className="proposal-form"
         onSubmit={this.handleProposalSubmit}
       >
+        <input 
+          type="text"
+          placeholder="Proposal title"
+          value={this.state.proposalName}
+          onChange={this.handleProposalNameChange}
+          className="proposal-form__input"
+        />
         <textarea 
           type="text"
-          placeholder="Submit a proposal..."
-          value={this.state.proposalName}
-          onChange={this.handleProposalChange} 
+          placeholder="Proposal description"
+          value={this.state.proposalDescription}
+          onChange={this.handleProposalDescriptionChange} 
           className="proposal-form__input"
           maxLength="255"
         ></textarea>

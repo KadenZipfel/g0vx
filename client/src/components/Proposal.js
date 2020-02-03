@@ -76,7 +76,8 @@ class Proposal extends Component {
   render() {
     return (
       <div className="proposal">
-        <p className="proposal__name">{this.props.name}</p>
+        <p className="proposal__name">{this.props.web3.utils.hexToAscii(this.props.title)}</p>
+        <p className="proposal__description">{this.props.web3.utils.hexToAscii(this.props.description)}</p>
         <Time timeLeft={this.props.timeLeft} />
         <div className="proposal__buttons">
           <button 

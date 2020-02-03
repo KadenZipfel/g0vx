@@ -18,7 +18,7 @@ class Hero extends Component {
           <Result
             id={proposal.id}
             key={proposal.id}
-            name={proposal.name}
+            title={proposal.title}
             result={proposal.result}
           />
         );
@@ -27,7 +27,8 @@ class Hero extends Component {
           <Proposal 
             {...this.props}
             id={proposal.id} 
-            name={proposal.name} 
+            title={proposal.title}
+            description={proposal.description} 
             key={proposal.id}
             voteWeightFor={proposal.voteWeightFor} 
             voteWeightAgainst={proposal.voteWeightAgainst}

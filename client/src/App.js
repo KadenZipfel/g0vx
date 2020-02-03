@@ -86,13 +86,15 @@ class App extends Component {
       const proposal = await this.state.contract.methods.proposals(i).call();
       const proposalObj = {
         id: proposal.id, 
-        name: proposal.name,
+        title: proposal.title,
+        description: proposal.description,
         startTime: proposal.startTime,
         voteWeightFor: proposal.voteWeightFor,
         voteWeightAgainst: proposal.voteWeightAgainst,
         result: proposal.result,
         resulted: proposal.resulted
       };
+      console.log(proposalObj);
       if((parseInt(proposalObj.startTime) + parseInt(this.state.timeLimit)) <= Math.floor(Date.now() / 1000)) {
         proposalObj.ended = true;
         proposalObj.timeLeft = false;
