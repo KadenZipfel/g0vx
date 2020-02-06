@@ -79,6 +79,14 @@ class Proposal extends Component {
         <p className="proposal__name">{this.props.web3.utils.hexToAscii(this.props.title)}</p>
         <p className="proposal__description">{this.props.web3.utils.hexToAscii(this.props.description)}</p>
         <Time timeLeft={this.props.timeLeft} />
+        <div className="proposal__weights">
+          <p className="proposal__weight">
+            {this.props.web3.utils.fromWei(this.props.voteWeightFor)}
+          </p>
+          <p className="proposal__weight">
+            {this.props.web3.utils.fromWei(this.props.voteWeightAgainst)}
+          </p>
+        </div>
         <div className="proposal__buttons">
           <button 
             className={'proposal__button proposal__button--for proposal__button--' + this.props.id}
