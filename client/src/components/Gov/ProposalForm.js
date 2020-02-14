@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import '../layout/components/proposalform.sass';
+import '../../layout/components/proposalform.sass';
 
 class ProposalForm extends Component {
   constructor(props) {
@@ -27,8 +27,6 @@ class ProposalForm extends Component {
   handleProposalSubmit(e) {
     e.preventDefault();
 
-    console.log(this.props.web3.utils.asciiToHex(this.state.proposalName));
-
     this.createProposal(
       // This part is working
       this.props.web3.utils.asciiToHex(this.state.proposalName),
@@ -38,7 +36,7 @@ class ProposalForm extends Component {
   }
 
   async createProposal(title, description) {
-    await this.props.contract.methods.submitProposal(title, description)
+    await this.props.protocol.methods.submitProposal(title, description)
       .send({from: this.props.account}, () => {
         this.props.setMessage('Transaction Pending...');
       }).on('confirmation', (number) => {

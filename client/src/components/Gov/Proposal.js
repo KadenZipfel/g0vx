@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import Time from './Time';
 
-import '../layout/components/proposal.sass';
+import '../../layout/components/proposal.sass';
 
 class Proposal extends Component {
   constructor(props) {
