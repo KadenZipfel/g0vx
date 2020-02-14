@@ -21,7 +21,26 @@ class Hero extends Component {
   }
 
   handleSubmit = (e) => {
-    // Generate a governance contract with given params
+    e.preventDefault();
+
+    this.props.factory.methods.createProtocol(
+      this.state.timeLimit, 
+      this.state.tokenAddress
+    ).send({from: this.props.account}, () => {
+      this.props.setMessage('Transaction Pending...');
+    }).on('confirmation', (number) => {
+      if(number === 0) {
+        this.props.setMessage('Transaction Confirmed!');
+        setTimeout(() => {
+          this.props.clearMessage();
+        }, 5000);
+      }
+    }).on('error', () => {
+      this.props.setMessage('Transaction Failed.');
+      setTimeout(() => {
+        this.props.clearMessage();
+      });
+    });
   }
 
   render() {

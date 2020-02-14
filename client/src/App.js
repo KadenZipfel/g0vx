@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import Governance from "./contracts/Governance.json";
+import GovernanceFactory from "./contracts/GovernanceFactory.json";
 import getWeb3 from "./utils/getWeb3";
+import {
+  BrowserRouter as Router,
+  Route
+} from "react-router-dom";
 
-import Nav from './components/Nav';
-import Hero from './components/Hero';
+import Index from './pages/Index';
 
 import './layout/config/_base.sass';
 
@@ -13,15 +16,12 @@ class App extends Component {
     this.state = {
       web3: null,
       account: null,
-      contract: null,
+      factory: null,
       message: null
     }
 
-    this.getProposals = this.getProposals.bind(this);
-    this.formatTime = this.formatTime.bind(this);
     this.setMessage = this.setMessage.bind(this);
     this.clearMessage = this.clearMessage.bind(this);
-    this.getTokenName = this.getTokenName.bind(this);
   }
 
   componentDidMount = async () => {
@@ -34,15 +34,15 @@ class App extends Component {
 
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork = Governance.networks[networkId];
+      const deployedNetwork = GovernanceFactory.networks[networkId];
       const instance = new web3.eth.Contract(
-        Governance.abi,
+        GovernanceFactory.abi,
         deployedNetwork && deployedNetwork.address,
       );
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, contract: instance }, this.runExample)
+      this.setState({ web3, accounts, factory: instance }, this.runExample)
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -59,102 +59,10 @@ class App extends Component {
         });
       }
     }, 1000);
-
-    this.getTimeLimit();
-    this.getProposals();
-    this.getTokenName();
-    this.getTokenBalance();
   };
 
   componentWillUnmount() {
     clearInterval(this.accountInterval);
-  }
-
-  async getTimeLimit() {
-    const timeLimit = await this.state.contract.methods.timeLimit().call();
-    this.setState({timeLimit});
-  }
-
-  async getProposals() {
-    const proposalsLength = await this.state.contract.methods.getProposalsLength().call();
-    let proposalArr = [];
-    for(let i = 0; i < proposalsLength; i++) {
-      const proposal = await this.state.contract.methods.proposals(i).call();
-      const proposalObj = {
-        id: proposal.id, 
-        title: proposal.title,
-        description: proposal.description,
-        startTime: proposal.startTime,
-        voteWeightFor: proposal.voteWeightFor,
-        voteWeightAgainst: proposal.voteWeightAgainst,
-        result: proposal.result,
-        resulted: proposal.resulted
-      };
-      console.log(proposalObj);
-      if((parseInt(proposalObj.startTime) + parseInt(this.state.timeLimit)) <= Math.floor(Date.now() / 1000)) {
-        proposalObj.ended = true;
-        proposalObj.timeLeft = false;
-      } else {
-        proposalObj.ended = false;
-        // Get time here
-        const time = (parseInt(proposalObj.startTime) + parseInt(this.state.timeLimit) - Math.floor(Date.now() / 1000));
-        proposalObj.timeLeft = this.formatTime(time);
-      }
-      proposalArr.push(proposalObj);
-    }
-    this.setState({proposals: proposalArr});
-  }
-
-  async getTokenName() {
-    const tokenAddress = await this.state.contract.methods.token().call();
-
-    const xhr = new XMLHttpRequest();
-    
-    // Set to Ropsten for testing
-    // For mainnet usage, use `api.etherscan.io`
-    xhr.open('GET', `https://api-ropsten.etherscan.io/api?module=account&action=tokentx&contractaddress=${tokenAddress}&page=1&offset=1`, true);
-    xhr.send();
-
-    xhr.onreadystatechange = (e) => {
-      if(xhr.readyState === 4 && xhr.status === 200) {
-        const response = JSON.parse(xhr.responseText);
-        const tokenName = response.result[0].tokenName;
-        this.setState({token: tokenName});
-      }
-    }
-  }
-
-  async getTokenBalance() {
-    const tokenAddress = await this.state.contract.methods.token().call();
-
-    const xhr = new XMLHttpRequest();
-
-    setTimeout(() => {
-      xhr.open('GET', `https://api-ropsten.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${tokenAddress}&address=${this.state.account}`, true);
-      xhr.send();
-
-      xhr.onreadystatechange = (e) => {
-        if(xhr.readyState === 4 && xhr.status === 200) {
-          const response = JSON.parse(xhr.responseText);
-          const balance = this.state.web3.utils.fromWei(response.result);
-          this.setState({balance});
-        }
-      }
-    }, 1000);
-  }
-
-  formatTime(time) {
-    const date = new Date(time * 1000);
-    const days = date.getUTCDate() - 1;
-    const hours = date.getUTCHours();
-    const minutes = date.getUTCMinutes();
-    const seconds = date.getSeconds();
-    return {
-      days, 
-      hours,
-      minutes,
-      seconds
-    }
   }
 
   setMessage(newMessage) {
@@ -176,10 +84,9 @@ class App extends Component {
     }
     return (
       <div>
-        <Nav />
-        <Hero 
-          {...this.state}
-        />
+        <Router>
+          <Route exact path="/" component={Index} />
+        </Router>
       </div>
     );
   }
