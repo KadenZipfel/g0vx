@@ -1,5 +1,4 @@
 import React from 'react';
-import github from '../images/github.png';
 import '../layout/components/nav.sass';
 
 function Nav() {
@@ -8,9 +7,9 @@ function Nav() {
       <h1 className="nav__brand">
         G0VX
       </h1>
-      <a href="https://github.com/KadenZipfel/governance-protocol" className="nav__icon">
-        <img src={github} alt="Github" className="nav__icon" />
-      </a>
+      <button className="nav__button">
+        Connect to a Wallet
+      </button>
     </nav>
   )
 }

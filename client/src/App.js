@@ -4,8 +4,6 @@ import getWeb3 from "./utils/getWeb3";
 
 import Nav from './components/Nav';
 import Hero from './components/Hero';
-import Message from './components/Message';
-import Footer from './components/Footer';
 
 import './layout/config/_base.sass';
 
@@ -16,11 +14,7 @@ class App extends Component {
       web3: null,
       account: null,
       contract: null,
-      proposals: [],
-      timeLimit: null,
-      message: null,
-      token: null,
-      balance: null
+      message: null
     }
 
     this.getProposals = this.getProposals.bind(this);
@@ -109,21 +103,6 @@ class App extends Component {
       proposalArr.push(proposalObj);
     }
     this.setState({proposals: proposalArr});
-    this.toggleButtons();
-  }
-
-  toggleButtons() {
-    this.state.proposals.forEach(proposal => {
-      if(proposal.ended && proposal.resulted === false) {
-        const voteButtons = document.querySelectorAll(`.proposal__button--${proposal.id}`);
-        const resultButton = document.querySelector(`.proposal__result--${proposal.id}`);
-
-        voteButtons.forEach(button => {
-          button.classList.add('hidden');
-        });
-        resultButton.classList.remove('hidden');
-      }
-    });
   }
 
   async getTokenName() {
@@ -200,15 +179,7 @@ class App extends Component {
         <Nav />
         <Hero 
           {...this.state}
-          getProposals={this.getProposals}
-          toggleButtons={this.toggleButtons}
-          hasProposalEnded={this.hasProposalEnded}
-          proposalResulted={this.proposalResulted}
-          setMessage={this.setMessage}
-          clearMessage={this.clearMessage}
         />
-        <Message message={this.state.message} />
-        <Footer />
       </div>
     );
   }
