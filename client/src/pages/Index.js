@@ -3,7 +3,7 @@ import GovernanceFactory from "../contracts/GovernanceFactory.json";
 import getWeb3 from "../utils/getWeb3";
 
 import Nav from '../components/Nav';
-import Hero from '../components/Hero';
+import Hero from '../components/Index/Hero';
 import Message from '../components/Message';
 
 import '../layout/config/_base.sass';

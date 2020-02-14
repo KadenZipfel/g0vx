@@ -15,7 +15,8 @@ class Gov extends Component {
       web3: null,
       account: null,
       factory: null,
-      message: null
+      message: null,
+      protocol: null
     }
   }
 
@@ -68,7 +69,7 @@ class Gov extends Component {
     this.state.factory.methods.getProtocol(
       this.state.govId
     ).call().then((res) => {
-      console.log(res);
+      this.setState({protocol: res});
     });
   }
 
@@ -90,6 +91,7 @@ class Gov extends Component {
       <div>
         <Nav />
         {this.state.govId}
+        {this.state.protocol}
         <Message />
       </div>
     );

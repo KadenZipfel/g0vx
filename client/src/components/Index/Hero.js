@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import '../layout/components/hero.sass';
+import '../../layout/components/hero.sass';
 
 // This isn't really a hero lol
 class Hero extends Component {
