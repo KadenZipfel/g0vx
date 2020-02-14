@@ -17,9 +17,6 @@ class Index extends Component {
       factory: null,
       message: null
     }
-
-    this.setMessage = this.setMessage.bind(this);
-    this.clearMessage = this.clearMessage.bind(this);
   }
 
   componentDidMount = async () => {
@@ -63,14 +60,14 @@ class Index extends Component {
     clearInterval(this.accountInterval);
   }
 
-  setMessage(newMessage) {
+  setMessage = (newMessage) => {
     this.setState({
       message: newMessage
     });
     console.log(this.state.message);
   }
 
-  clearMessage() {
+  clearMessage = () => {
     this.setState({
       message: null
     });
