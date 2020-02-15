@@ -21,6 +21,9 @@ class Gov extends Component {
       message: null,
       protocolAddress: null,
       protocol: null,
+      token: null,
+      openCheck: true,
+      closedCheck: false,
       proposals: []
     }
   }
@@ -89,6 +92,23 @@ class Gov extends Component {
     });
   }
 
+  getTokenName = async () => {
+    const tokenAddress = await this.state.contract.methods.token().call();
+
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('GET', `https://api.etherscan.io/api?module=account&action=tokentx&contractaddress=${tokenAddress}&page=1&offset=1`, true);
+    xhr.send();
+
+    xhr.onreadystatechange = (e) => {
+      if(xhr.readyState === 4 && xhr.status === 200) {
+        const response = JSON.parse(xhr.responseText);
+        const tokenName = response.result[0].tokenName;
+        this.setState({token: tokenName});
+      }
+    }
+  }
+
   setMessage = (newMessage) => {
     this.setState({
       message: newMessage
@@ -133,6 +153,24 @@ class Gov extends Component {
     // this.toggleButtons();
   }
 
+  handleOpenCheck = () => {
+    if(this.state.openCheck === true) {
+      this.setState({openCheck: false});
+    }
+    else {
+      this.setState({openCheck: true});
+    }
+  }
+
+  handleClosedCheck = () => {
+    if(this.state.closedCheck === true) {
+      this.setState({closedCheck: false});
+    }
+    else {
+      this.setState({closedCheck: true});
+    }
+  }
+
   render() {
     let proposals = [];
     this.state.proposals.forEach(proposal => {
@@ -154,13 +192,35 @@ class Gov extends Component {
 
     return (
       <div>
-        <Nav />
+        <Nav tokenName={this.state.token} />
         <ProposalForm 
           {...this.state}
           getProposals={this.getProposals}
           setMessage={this.setMessage}
           clearMessage={this.clearMessage}
         />
+        <div className="gov__checkboxes">
+          <p className="gov__label">
+            Open
+          </p>
+          <input 
+            type="checkbox"
+            className="gov__checkbox"
+            name="open"
+            onChange={this.handleOpenCheck}
+            checked={this.state.openCheck}
+          />
+          <p className="gov__label">
+            Closed
+          </p>
+          <input 
+            type="checkbox"
+            className="gov__checkbox"
+            name="closed"
+            onChange={this.handleClosedCheck}
+            checked={this.state.closedCheck}
+          />
+        </div>
         {proposals}
         <Message />
       </div>
