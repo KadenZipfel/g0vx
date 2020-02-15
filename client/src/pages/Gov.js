@@ -174,20 +174,42 @@ class Gov extends Component {
   render() {
     let proposals = [];
     this.state.proposals.forEach(proposal => {
-      proposals.push(
-        <Proposal 
-          {...this.state}
-          id={proposal.id} 
-          title={proposal.title}
-          description={proposal.description} 
-          key={proposal.id}
-          voteWeightFor={proposal.voteWeightFor} 
-          voteWeightAgainst={proposal.voteWeightAgainst}
-          timeLeft={proposal.timeLeft}
-          setMessage={this.props.setMessage}
-          clearMessage={this.props.clearMessage}
-        />
-      );
+      if(this.state.openCheck === true) {
+        if(proposal.resulted === false) {
+          proposals.push(
+            <Proposal 
+              {...this.state}
+              id={proposal.id} 
+              title={proposal.title}
+              description={proposal.description} 
+              key={proposal.id}
+              voteWeightFor={proposal.voteWeightFor} 
+              voteWeightAgainst={proposal.voteWeightAgainst}
+              timeLeft={proposal.timeLeft}
+              setMessage={this.props.setMessage}
+              clearMessage={this.props.clearMessage}
+            />
+          );
+        }
+      }
+      if(this.state.closedCheck === true) {
+        if(proposal.resulted === true) {
+          proposals.push(
+            <Proposal 
+              {...this.state}
+              id={proposal.id} 
+              title={proposal.title}
+              description={proposal.description} 
+              key={proposal.id}
+              voteWeightFor={proposal.voteWeightFor} 
+              voteWeightAgainst={proposal.voteWeightAgainst}
+              timeLeft={proposal.timeLeft}
+              setMessage={this.setMessage}
+              clearMessage={this.clearMessage}
+            />
+          );
+        }
+      }
     });
 
     return (

@@ -54,7 +54,7 @@ class Proposal extends Component {
   }
 
   handleResult() {
-    this.props.contract.methods.result(this.props.id)
+    this.props.protocol.methods.result(this.props.id)
       .send({from: this.props.account}, () => {
         this.props.setMessage('Transaction Pending...');
       }).on('confirmation', (number) => {
