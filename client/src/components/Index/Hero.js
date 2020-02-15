@@ -49,7 +49,10 @@ class Hero extends Component {
         <h1 className="hero__header">
           Create a Governance Protocol
         </h1>
-        <form onSubmit={this.handleSubmit}>
+        <form 
+          onSubmit={this.handleSubmit}
+          className="hero__form"
+        >
           <input
             name="address"
             placeholder="Token address"
@@ -60,7 +63,7 @@ class Hero extends Component {
           />
           <input 
             name="timeLimit"
-            placeholder="Time limit in seconds"
+            placeholder="Proposal time limit (seconds)"
             type="number"
             className="hero__input"
             onChange={this.handleTimeLimitChange}

@@ -1,29 +1,46 @@
 @import ../config/breakpoints
+@import ../config/colors
   
 .hero
-  padding: 0 120px
-  // 100px = nav height
-  min-height: calc(100vh - 100px)
-  +media($breakpoint-md)
-    padding: 0 24px
-  +media($breakpoint-sm)
-    padding: 0 16px
-  
-.hero__forms
-  display: flex
-  align-items: center
-  justify-content: space-between
-  margin-bottom: 38px
-  +media($breakpoint-lg)
-    flex-direction: column
-  +media($breakpoint-sm)
-    margin-bottom: 24px
-
-.hero__header
-  font-size: 22px
-  margin-bottom: 16px
-
-.hero__user
   display: flex
   flex-direction: column
   align-items: center
+  justify-content: center
+  width: 100%
+  // 60px == nav.height
+  height: calc(100vh - 120px)
+  
+.hero__header
+  font-size: 32px
+  margin-bottom: 12px
+  font-weight: 300
+  color: $color-brand
+
+.hero__form
+  display: flex
+  flex-direction: column
+  align-items: center
+
+.hero__input
+  text-align: center
+  width: 415px
+  border-radius: 10px
+  border: 1px solid $color-grey
+  padding: 8px
+  font-size: 18px
+  font-weight: 300
+  font-family: Roboto
+  margin: 2px
+
+.hero__button
+  font-size: 32px
+  font-family: Roboto
+  background-color: $color-brand
+  color: white
+  padding: 4px
+  border-radius: 50px
+  border: none
+  width: 415px
+  max-width: 90vw
+  font-weight: 300 !important
+  margin: 12px 0
