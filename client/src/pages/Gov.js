@@ -9,6 +9,7 @@ import ProposalForm from '../components/Gov/ProposalForm';
 import Proposal from '../components/Gov/Proposal';
 
 import '../layout/config/_base.sass';
+import '../layout/components/gov.sass';
 
 class Gov extends Component {
   constructor(props) {
@@ -221,29 +222,34 @@ class Gov extends Component {
           setMessage={this.setMessage}
           clearMessage={this.clearMessage}
         />
-        <div className="gov__checkboxes">
-          <p className="gov__label">
-            Open
-          </p>
-          <input 
-            type="checkbox"
-            className="gov__checkbox"
-            name="open"
-            onChange={this.handleOpenCheck}
-            checked={this.state.openCheck}
-          />
-          <p className="gov__label">
-            Closed
-          </p>
-          <input 
-            type="checkbox"
-            className="gov__checkbox"
-            name="closed"
-            onChange={this.handleClosedCheck}
-            checked={this.state.closedCheck}
-          />
+        <div className="gov">
+          <h2 className="gov__header">
+            Proposals
+          </h2>
+          <div className="gov__checkboxes">
+            <p className="gov__label">
+              Open
+            </p>
+            <input 
+              type="checkbox"
+              className="gov__checkbox"
+              name="open"
+              onChange={this.handleOpenCheck}
+              checked={this.state.openCheck}
+            />
+            <p className="gov__label">
+              Closed
+            </p>
+            <input 
+              type="checkbox"
+              className="gov__checkbox"
+              name="closed"
+              onChange={this.handleClosedCheck}
+              checked={this.state.closedCheck}
+            />
+          </div>
+          {proposals}
         </div>
-        {proposals}
         <Message />
       </div>
     );
