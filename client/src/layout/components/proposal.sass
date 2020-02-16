@@ -1,3 +1,62 @@
 @import ../config/colors
 @import ../config/breakpoints
   
+.proposal
+  display: flex
+  width: 1068px
+  max-width: 95%
+  align-items: center
+  justify-content: space-between
+  border: 1px solid $color-grey
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25)
+  border-radius: 10px
+  margin: 8px 0
+  padding: 8px 32px
+
+.proposal__buttons
+  display: flex
+  flex-direction: column
+  align-items: center
+
+.proposal__button
+  background: none
+  border: none
+  cursor: pointer
+  margin: 4px
+
+.proposal__info
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: flex-start
+  flex-grow: 1
+  margin: 0 32px
+
+.proposal__name
+  font-size: 24px
+  margin-top: 4px
+  margin-bottom: 8px
+  font-weight: 300
+
+.proposal__description
+  margin: 0
+  margin-bottom: 8px
+  color: $color-dark-grey
+
+.proposal__result
+  background: none
+  border: none
+  color: $color-brand
+  font-size: 14px
+  align-self: flex-end
+  margin-bottom: 8px
+
+.hidden
+  display: none
+
+.proposal__time
+  font-size: 14px
+  color: $color-grey
+  margin: 0
+  align-self: flex-end
+  margin-bottom: 8px

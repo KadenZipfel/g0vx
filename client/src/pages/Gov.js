@@ -25,6 +25,7 @@ class Gov extends Component {
       token: null,
       openCheck: true,
       closedCheck: false,
+      timeLimit: null,
       proposals: []
     }
   }
@@ -90,6 +91,12 @@ class Gov extends Component {
       } else {
         this.getProposals();
       }
+    }).then(() => {
+      this.getTimeLimit();
+    }).then(() => {
+      setTimeout(() => {
+        this.toggleButtons();
+      }, 1000);
     });
   }
 
@@ -141,17 +148,45 @@ class Gov extends Component {
       console.log(proposalObj);
       if((parseInt(proposalObj.startTime) + parseInt(this.state.timeLimit)) <= Math.floor(Date.now() / 1000)) {
         proposalObj.ended = true;
-        proposalObj.timeLeft = false;
+        proposalObj.timeLeft = 0;
       } else {
         proposalObj.ended = false;
         // Get time here
-        // const time = (parseInt(proposalObj.startTime) + parseInt(this.state.timeLimit) - Math.floor(Date.now() / 1000));
-        // proposalObj.timeLeft = this.formatTime(time);
+        const time = (parseInt(proposalObj.startTime) + parseInt(this.state.timeLimit) - Math.floor(Date.now() / 1000));
+        proposalObj.timeLeft = this.formatTime(time);
       }
       proposalArr.push(proposalObj);
     }
     this.setState({proposals: proposalArr});
-    // this.toggleButtons();
+  }
+
+  formatTime(time) {
+    const date = new Date(time * 1000);
+    const days = date.getUTCDate() - 1;
+    const hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes();
+    const seconds = date.getSeconds();
+    return {
+      days, 
+      hours,
+      minutes,
+      seconds
+    }
+  }
+
+  toggleButtons = () => {
+    this.state.proposals.forEach(proposal => {
+      if(proposal.ended && proposal.resulted === false) {
+        const resultButton = document.querySelector(`.proposal__result--${proposal.id}`);
+
+        resultButton.classList.remove('hidden');
+      }
+    });
+  }
+
+  getTimeLimit = async () => {
+    const timeLimit = await this.state.protocol.methods.timeLimit().call();
+    this.setState({timeLimit});
   }
 
   handleOpenCheck = () => {
@@ -216,12 +251,6 @@ class Gov extends Component {
     return (
       <div>
         <Nav tokenName={this.state.token} />
-        <ProposalForm 
-          {...this.state}
-          getProposals={this.getProposals}
-          setMessage={this.setMessage}
-          clearMessage={this.clearMessage}
-        />
         <div className="gov">
           <h2 className="gov__header">
             Proposals
@@ -248,6 +277,12 @@ class Gov extends Component {
               checked={this.state.closedCheck}
             />
           </div>
+          {/* <ProposalForm 
+            {...this.state}
+            getProposals={this.getProposals}
+            setMessage={this.setMessage}
+            clearMessage={this.clearMessage}
+          /> */}
           {proposals}
         </div>
         <Message />
