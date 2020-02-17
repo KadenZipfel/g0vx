@@ -5,13 +5,39 @@
   display: flex
   flex-direction: column
   align-items: center
+  
+.gov__header
+  font-size: 32px
+  font-weight: 300
+  color: $color-brand
+  margin-bottom: 60px
+
+.gov__utils
+  display: flex
+  align-items: center
+  justify-content: space-between
+  width: 1068px
+  max-width: 95%
+  margin-bottom: 16px
+
+.gov__proposal-button
+  color: $color-brand
+  font-size: 14px
+  border-color: $color-brand
+  border-radius: 50px
+  background: white
+  padding: 6px 12px
+  border-width: 1px
+  cursor: pointer
+  transition: 0.2s color, 0.2s background
+
+.gov__proposal-button:hover
+  background: $color-brand
+  color: white
 
 .gov__checkboxes
   display: flex
   align-items: center
-  margin-left: auto
-  margin-right: 200px
-  margin-bottom: 16px
 
 .gov__label
   font-size: 18px
@@ -41,8 +67,3 @@
 
 .gov__checkbox:checked ~ .gov__checkmark
   background: $color-brand
-
-.gov__header
-  font-size: 32px
-  font-weight: 300
-  color: $color-brand

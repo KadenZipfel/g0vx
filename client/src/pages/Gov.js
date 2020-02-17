@@ -255,29 +255,34 @@ class Gov extends Component {
           <h2 className="gov__header">
             Proposals
           </h2>
-          <div className="gov__checkboxes">
-            <label className="gov__label">
-              Open
-              <input 
-                type="checkbox"
-                className="gov__checkbox"
-                name="open"
-                onChange={this.handleOpenCheck}
-                checked={this.state.openCheck}
-              />
-              <span className="gov__checkmark"></span>
-            </label>
-            <label className="gov__label">
-              Closed
-              <input 
-                type="checkbox"
-                className="gov__checkbox"
-                name="closed"
-                onChange={this.handleClosedCheck}
-                checked={this.state.closedCheck}
-              />
-              <span className="gov__checkmark"></span>
-            </label>
+          <div className="gov__utils">
+            <button className="gov__proposal-button">
+              Submit a Proposal
+            </button>
+            <div className="gov__checkboxes">
+              <label className="gov__label">
+                Open
+                <input 
+                  type="checkbox"
+                  className="gov__checkbox"
+                  name="open"
+                  onChange={this.handleOpenCheck}
+                  checked={this.state.openCheck}
+                />
+                <span className="gov__checkmark"></span>
+              </label>
+              <label className="gov__label">
+                Closed
+                <input 
+                  type="checkbox"
+                  className="gov__checkbox"
+                  name="closed"
+                  onChange={this.handleClosedCheck}
+                  checked={this.state.closedCheck}
+                />
+                <span className="gov__checkmark"></span>
+              </label>
+            </div>
           </div>
           {/* <ProposalForm 
             {...this.state}
