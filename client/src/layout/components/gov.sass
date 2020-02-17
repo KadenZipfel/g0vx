@@ -11,10 +11,36 @@
   align-items: center
   margin-left: auto
   margin-right: 200px
+  margin-bottom: 16px
 
 .gov__label
+  font-size: 18px
+  font-weight: 300
+  margin-left: 16px
+  margin-right: 4px
+  padding-left: 24px
+  position: relative
+  cursor: pointer
 
 .gov__checkbox
+  position: absolute
+  opacity: 0
+  cursor: pointer
+  height: 0
+  width: 0
+
+.gov__checkmark
+  position: absolute
+  top: 0
+  left: 0
+  height: 18px
+  width: 18px
+  border: 1px solid $color-brand
+  cursor: pointer
+  transition: 0.2s background
+
+.gov__checkbox:checked ~ .gov__checkmark
+  background: $color-brand
 
 .gov__header
   font-size: 32px

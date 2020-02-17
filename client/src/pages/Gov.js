@@ -256,26 +256,28 @@ class Gov extends Component {
             Proposals
           </h2>
           <div className="gov__checkboxes">
-            <p className="gov__label">
+            <label className="gov__label">
               Open
-            </p>
-            <input 
-              type="checkbox"
-              className="gov__checkbox"
-              name="open"
-              onChange={this.handleOpenCheck}
-              checked={this.state.openCheck}
-            />
-            <p className="gov__label">
+              <input 
+                type="checkbox"
+                className="gov__checkbox"
+                name="open"
+                onChange={this.handleOpenCheck}
+                checked={this.state.openCheck}
+              />
+              <span className="gov__checkmark"></span>
+            </label>
+            <label className="gov__label">
               Closed
-            </p>
-            <input 
-              type="checkbox"
-              className="gov__checkbox"
-              name="closed"
-              onChange={this.handleClosedCheck}
-              checked={this.state.closedCheck}
-            />
+              <input 
+                type="checkbox"
+                className="gov__checkbox"
+                name="closed"
+                onChange={this.handleClosedCheck}
+                checked={this.state.closedCheck}
+              />
+              <span className="gov__checkmark"></span>
+            </label>
           </div>
           {/* <ProposalForm 
             {...this.state}
