@@ -57,29 +57,34 @@ class ProposalForm extends Component {
 
   render() {
     return(
-      <form 
-        className="proposal-form"
-        onSubmit={this.handleProposalSubmit}
-      >
-        <input 
-          type="text"
-          placeholder="Proposal title"
-          value={this.state.proposalName}
-          onChange={this.handleProposalNameChange}
-          className="proposal-form__input"
-        />
-        <textarea 
-          type="text"
-          placeholder="Proposal description"
-          value={this.state.proposalDescription}
-          onChange={this.handleProposalDescriptionChange} 
-          className="proposal-form__input"
-          maxLength="255"
-        ></textarea>
-        <button className="proposal-form__button">
-          Submit
-        </button>
-      </form>
+      <div className="proposal-form">
+        <form 
+          className="proposal-form__form"
+          onSubmit={this.handleProposalSubmit}
+        >
+          <h4 className="proposal-form__header">
+            Submit a Proposal
+          </h4>
+          <input 
+            type="text"
+            placeholder="Title"
+            value={this.state.proposalName}
+            onChange={this.handleProposalNameChange}
+            className="proposal-form__input"
+          />
+          <textarea 
+            type="text"
+            placeholder="Description (max. 255 chars)"
+            value={this.state.proposalDescription}
+            onChange={this.handleProposalDescriptionChange} 
+            className="proposal-form__textarea"
+            maxLength="255"
+          ></textarea>
+          <button className="proposal-form__button">
+            Submit
+          </button>
+        </form>
+      </div>
     );
   }
 }

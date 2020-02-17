@@ -284,12 +284,12 @@ class Gov extends Component {
               </label>
             </div>
           </div>
-          {/* <ProposalForm 
+          <ProposalForm 
             {...this.state}
             getProposals={this.getProposals}
             setMessage={this.setMessage}
             clearMessage={this.clearMessage}
-          /> */}
+          />
           {proposals}
         </div>
         <Message />
