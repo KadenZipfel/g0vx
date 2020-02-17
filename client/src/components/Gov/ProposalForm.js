@@ -55,9 +55,19 @@ class ProposalForm extends Component {
       });
   }
 
+  handleProposalFormClick = (e) => {
+    const form = document.querySelector('.proposal-form');
+    if(e.target === form) {
+      this.props.toggleProposalForm();
+    }
+  }
+
   render() {
     return(
-      <div className="proposal-form">
+      <div 
+        className="hidden proposal-form"
+        onClick={this.handleProposalFormClick}
+      >
         <form 
           className="proposal-form__form"
           onSubmit={this.handleProposalSubmit}

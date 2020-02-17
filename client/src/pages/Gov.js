@@ -207,6 +207,15 @@ class Gov extends Component {
     }
   }
 
+  toggleProposalForm = () => {
+    const form = document.querySelector('.proposal-form');
+    if(form.classList.contains('hidden')) {
+      form.classList.remove('hidden');
+    } else {
+      form.classList.add('hidden');
+    }
+  }
+
   render() {
     let proposals = [];
     this.state.proposals.forEach(proposal => {
@@ -256,7 +265,10 @@ class Gov extends Component {
             Proposals
           </h2>
           <div className="gov__utils">
-            <button className="gov__proposal-button">
+            <button 
+              className="gov__proposal-button"
+              onClick={this.toggleProposalForm}
+            >
               Submit a Proposal
             </button>
             <div className="gov__checkboxes">
@@ -289,6 +301,7 @@ class Gov extends Component {
             getProposals={this.getProposals}
             setMessage={this.setMessage}
             clearMessage={this.clearMessage}
+            toggleProposalForm={this.toggleProposalForm}
           />
           {proposals}
         </div>
