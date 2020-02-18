@@ -107,6 +107,7 @@ class Gov extends Component {
 
     const xhr = new XMLHttpRequest();
 
+    // API must be switched to mainnet in production
     xhr.open('GET', `https://api-ropsten.etherscan.io/api?module=account&action=tokentx&contractaddress=${tokenAddress}&page=1&offset=1`, true);
     xhr.send();
 
