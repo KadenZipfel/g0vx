@@ -94,6 +94,7 @@ class Gov extends Component {
       }
     }).then(() => {
       this.getTimeLimit();
+      this.getTokenName();
     }).then(() => {
       setTimeout(() => {
         this.toggleButtons();
@@ -102,11 +103,11 @@ class Gov extends Component {
   }
 
   getTokenName = async () => {
-    const tokenAddress = await this.state.contract.methods.token().call();
+    const tokenAddress = await this.state.protocol.methods.token().call();
 
     const xhr = new XMLHttpRequest();
 
-    xhr.open('GET', `https://api.etherscan.io/api?module=account&action=tokentx&contractaddress=${tokenAddress}&page=1&offset=1`, true);
+    xhr.open('GET', `https://api-ropsten.etherscan.io/api?module=account&action=tokentx&contractaddress=${tokenAddress}&page=1&offset=1`, true);
     xhr.send();
 
     xhr.onreadystatechange = (e) => {
