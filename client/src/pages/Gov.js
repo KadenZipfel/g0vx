@@ -26,7 +26,8 @@ class Gov extends Component {
       openCheck: true,
       closedCheck: false,
       timeLimit: null,
-      proposals: []
+      proposals: [],
+      error: false
     }
   }
 
@@ -87,7 +88,7 @@ class Gov extends Component {
       this.setState({protocol});
     }).then(() => {
       if(this.state.protocolAddress.toString() === '0x0000000000000000000000000000000000000000') {
-        return console.log("Protocol does not exist.");
+        this.setState({error: true});
       } else {
         this.getProposals();
       }
@@ -257,57 +258,66 @@ class Gov extends Component {
       }
     });
 
-    return (
-      <div>
-        <Nav tokenName={this.state.token} />
-        <div className="gov">
-          <h2 className="gov__header">
-            Proposals
-          </h2>
-          <div className="gov__utils">
-            <button 
-              className="gov__proposal-button"
-              onClick={this.toggleProposalForm}
-            >
-              Submit a Proposal
-            </button>
-            <div className="gov__checkboxes">
-              <label className="gov__label">
-                Open
-                <input 
-                  type="checkbox"
-                  className="gov__checkbox"
-                  name="open"
-                  onChange={this.handleOpenCheck}
-                  checked={this.state.openCheck}
-                />
-                <span className="gov__checkmark"></span>
-              </label>
-              <label className="gov__label">
-                Closed
-                <input 
-                  type="checkbox"
-                  className="gov__checkbox"
-                  name="closed"
-                  onChange={this.handleClosedCheck}
-                  checked={this.state.closedCheck}
-                />
-                <span className="gov__checkmark"></span>
-              </label>
-            </div>
-          </div>
-          <ProposalForm 
-            {...this.state}
-            getProposals={this.getProposals}
-            setMessage={this.setMessage}
-            clearMessage={this.clearMessage}
-            toggleProposalForm={this.toggleProposalForm}
-          />
-          {proposals}
+    if(this.state.error) {
+      return (
+        <div>
+          <Nav tokenName={this.state.token} />
+          <p className="gov__error">Protocol does not exist.</p>
         </div>
-        <Message />
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div>
+          <Nav tokenName={this.state.token} />
+          <div className="gov">
+            <h2 className="gov__header">
+              Proposals
+            </h2>
+            <div className="gov__utils">
+              <button 
+                className="gov__proposal-button"
+                onClick={this.toggleProposalForm}
+              >
+                Submit a Proposal
+              </button>
+              <div className="gov__checkboxes">
+                <label className="gov__label">
+                  Open
+                  <input 
+                    type="checkbox"
+                    className="gov__checkbox"
+                    name="open"
+                    onChange={this.handleOpenCheck}
+                    checked={this.state.openCheck}
+                  />
+                  <span className="gov__checkmark"></span>
+                </label>
+                <label className="gov__label">
+                  Closed
+                  <input 
+                    type="checkbox"
+                    className="gov__checkbox"
+                    name="closed"
+                    onChange={this.handleClosedCheck}
+                    checked={this.state.closedCheck}
+                  />
+                  <span className="gov__checkmark"></span>
+                </label>
+              </div>
+            </div>
+            <ProposalForm 
+              {...this.state}
+              getProposals={this.getProposals}
+              setMessage={this.setMessage}
+              clearMessage={this.clearMessage}
+              toggleProposalForm={this.toggleProposalForm}
+            />
+            {proposals}
+          </div>
+          <Message />
+        </div>
+      );
+    }
   }
 }
 
