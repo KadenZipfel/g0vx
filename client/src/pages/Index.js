@@ -76,7 +76,7 @@ class Index extends Component {
   render() {
     return (
       <div>
-        <Nav />
+        <Nav {...this.state} />
         <Hero 
           {...this.state}
           setMessage={this.setMessage}

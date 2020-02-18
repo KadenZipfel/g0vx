@@ -20,10 +20,10 @@ class Hero extends Component {
     this.setState({timeLimit: e.target.value})
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
 
-    this.props.factory.methods.createProtocol(
+    await this.props.factory.methods.createProtocol(
       this.state.timeLimit, 
       this.state.tokenAddress
     ).send({from: this.props.account}, () => {
@@ -41,6 +41,9 @@ class Hero extends Component {
         this.props.clearMessage();
       });
     });
+
+    const id = await this.props.factory.methods.getLastId().call();
+    console.log(id);
   }
 
   render() {
