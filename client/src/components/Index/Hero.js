@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 import '../../layout/components/hero.sass';
 
@@ -8,7 +9,8 @@ class Hero extends Component {
     super(props);
     this.state = {
       tokenAddress: '',
-      timeLimit: ''
+      timeLimit: '',
+      protocolLink: null
     }
   }
 
@@ -42,11 +44,27 @@ class Hero extends Component {
       });
     });
 
-    const id = await this.props.factory.methods.getLastId().call();
-    console.log(id);
+    this.props.factory.methods.getLastId().call((err, res) => {
+      if(err) {
+        console.log(err);
+      } else {
+        const link = `/gov/${res}`;
+        this.setState({protocolLink: link});
+      }
+    });
+  }
+
+  getProtocolLink = (id) => {
+
   }
 
   render() {
+    let link;
+
+    if(this.state.protocolLink) {
+      link = <Link to={this.state.protocolLink}>Go to Protocol</Link>
+    }
+
     return (
       <section className="hero">
         <h1 className="hero__header">
@@ -76,6 +94,7 @@ class Hero extends Component {
             Create Governance
           </button>
         </form>
+        {link}
       </section>
     );
   }
