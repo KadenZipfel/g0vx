@@ -34,13 +34,13 @@ class Hero extends Component {
       if(number === 0) {
         this.props.setMessage('Transaction Confirmed!');
         setTimeout(() => {
-          this.props.clearMessage();
+          // this.props.clearMessage();
         }, 5000);
       }
     }).on('error', () => {
       this.props.setMessage('Transaction Failed.');
       setTimeout(() => {
-        this.props.clearMessage();
+        // this.props.clearMessage();
       });
     });
 
@@ -52,10 +52,6 @@ class Hero extends Component {
         this.setState({protocolLink: link});
       }
     });
-  }
-
-  getProtocolLink = (id) => {
-
   }
 
   render() {

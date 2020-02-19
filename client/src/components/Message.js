@@ -3,12 +3,10 @@ import '../layout/components/message.sass';
 
 class Message extends Component {
   render() {
-    if(this.props.message != null) {
+    if(this.props.message) {
       return(
         <div className="message">
-          <p className="message__text">
-            {this.props.message}
-          </p>
+          {this.props.message}
         </div>
       );
     } else {

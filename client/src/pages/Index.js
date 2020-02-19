@@ -15,7 +15,7 @@ class Index extends Component {
       web3: null,
       account: null,
       factory: null,
-      message: null
+      message: ''
     }
   }
 
@@ -52,6 +52,7 @@ class Index extends Component {
         this.setState({
           account: accounts[0]
         });
+        console.log(this.state.account);
       }
     }, 1000);
   };
