@@ -22,10 +22,10 @@ class Proposal extends Component {
       }).on('confirmation', (number, receipt) => {
         if(number === 0) {
           this.props.setMessage('Transaction Confirmed!', receipt.transactionHash);
-          this.props.getProposals();
           setTimeout(() => {
             this.props.clearMessage();
           }, 5000);
+          this.props.getProposals();
         }
       }).on('error', (err, receipt) => {
         this.props.setMessage('Transaction Failed.', receipt.transactionHash);
@@ -39,10 +39,10 @@ class Proposal extends Component {
       }).on('confirmation', (number, receipt) => {
         if(number === 0) {
           this.props.setMessage('Transaction Confirmed!', receipt.transactionHash);
-          this.props.getProposals();
           setTimeout(() => {
             this.props.clearMessage();
           }, 5000);
+          this.props.getProposals();
         }
       }).on('error', (err, receipt) => {
         this.props.setMessage('Transaction Failed.', receipt.transactionHash);
@@ -56,10 +56,10 @@ class Proposal extends Component {
       }).on('confirmation', (number, receipt) => {
         if(number === 0) {
           this.props.setMessage('Transaction Confirmed!', receipt.transactionHash);
-          this.props.getProposals();
           setTimeout(() => {
             this.props.clearMessage();
           }, 5000);
+          this.props.getProposals();
         }
       }).on('error', (err, receipt) => {
         this.props.setMessage('Transaction Failed.', receipt.transactionHash);
