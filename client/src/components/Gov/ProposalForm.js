@@ -37,21 +37,18 @@ class ProposalForm extends Component {
 
   async createProposal(title, description) {
     await this.props.protocol.methods.submitProposal(title, description)
-      .send({from: this.props.account}, () => {
-        this.props.setMessage('Transaction Pending...');
-      }).on('confirmation', (number) => {
+      .send({from: this.props.account}, (err, transactionHash) => {
+        this.props.setMessage('Transaction Pending...', transactionHash);
+      }).on('confirmation', (number, receipt) => {
         if(number === 0) {
-          this.props.setMessage('Transaction Confirmed!');
+          this.props.setMessage('Transaction Confirmed!', receipt.transactionHash);
           this.props.getProposals();
           setTimeout(() => {
             this.props.clearMessage();
           }, 5000);
         }
-      }).on('error', () => {
-        this.props.setMessage('Transaction Failed.');
-        setTimeout(() => {
-          this.props.clearMessage();
-        });
+      }).on('error', (error, receipt) => {
+        this.props.setMessage('Transaction Failed.', receipt.transactionHash);
       });
   }
 

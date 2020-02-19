@@ -34,14 +34,11 @@ class Hero extends Component {
       if(number === 0) {
         this.props.setMessage('Transaction Confirmed!', receipt.transactionHash);
         setTimeout(() => {
-          // this.props.clearMessage();
+          this.props.clearMessage();
         }, 5000);
       }
     }).on('error', (error, receipt) => {
       this.props.setMessage('Transaction Failed.', receipt.transactionHash);
-      setTimeout(() => {
-        // this.props.clearMessage();
-      }, 5000);
     });
 
     this.props.factory.methods.getLastId().call((err, res) => {

@@ -27,7 +27,8 @@ class Gov extends Component {
       closedCheck: false,
       timeLimit: null,
       proposals: [],
-      error: false
+      error: false,
+      txHash: ''
     }
   }
 
@@ -120,16 +121,19 @@ class Gov extends Component {
     }
   }
 
-  setMessage = (newMessage) => {
+  setMessage = (newMessage, txHash) => {
     this.setState({
-      message: newMessage
+      message: newMessage,
+      txHash
     });
     console.log(this.state.message);
+    console.log(this.state.txHash);
   }
 
   clearMessage = () => {
     this.setState({
-      message: null
+      message: null,
+      txHash: null
     });
   }
 
@@ -263,14 +267,14 @@ class Gov extends Component {
     if(this.state.error) {
       return (
         <div>
-          <Nav tokenName={this.state.token} />
+          <Nav {...this.state} tokenName={this.state.token} />
           <p className="gov__error">Protocol does not exist.</p>
         </div>
       );
     } else {
       return (
         <div>
-          <Nav tokenName={this.state.token} />
+          <Nav {...this.state} tokenName={this.state.token} />
           <div className="gov">
             <h2 className="gov__header">
               Proposals
