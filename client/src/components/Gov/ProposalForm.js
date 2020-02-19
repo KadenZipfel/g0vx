@@ -27,6 +27,8 @@ class ProposalForm extends Component {
   handleProposalSubmit(e) {
     e.preventDefault();
 
+    this.props.toggleProposalForm();
+
     this.createProposal(
       // This part is working
       this.props.web3.utils.asciiToHex(this.state.proposalName),
