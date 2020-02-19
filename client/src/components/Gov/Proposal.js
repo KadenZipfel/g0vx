@@ -17,61 +17,52 @@ class Proposal extends Component {
 
   handleVoteFor() {
     this.props.protocol.methods.submitVote(this.props.id, true)
-      .send({from: this.props.account}, () => {
-        this.props.setMessage('Transaction Pending...');
-      }).on('confirmation', (number) => {
+      .send({from: this.props.account}, (err, transactionHash) => {
+        this.props.setMessage('Transaction Pending...', transactionHash);
+      }).on('confirmation', (number, receipt) => {
         if(number === 0) {
-          this.props.setMessage('Transaction Confirmed!');
+          this.props.setMessage('Transaction Confirmed!', receipt.transactionHash);
           this.props.getProposals();
           setTimeout(() => {
             this.props.clearMessage();
           }, 5000);
         }
-      }).on('error', () => {
-        this.props.setMessage('Transaction Failed.');
-        setTimeout(() => {
-          this.props.clearMessage();
-        });
+      }).on('error', (err, receipt) => {
+        this.props.setMessage('Transaction Failed.', receipt.transactionHash);
       });
   }
 
   handleVoteAgainst() {
     this.props.protocol.methods.submitVote(this.props.id, false)
-      .send({from: this.props.account}, () => {
-        this.props.setMessage('Transaction Pending...');
-      }).on('confirmation', (number) => {
+      .send({from: this.props.account}, (err, transactionHash) => {
+        this.props.setMessage('Transaction Pending...', transactionHash);
+      }).on('confirmation', (number, receipt) => {
         if(number === 0) {
-          this.props.setMessage('Transaction Confirmed!');
+          this.props.setMessage('Transaction Confirmed!', receipt.transactionHash);
           this.props.getProposals();
           setTimeout(() => {
             this.props.clearMessage();
           }, 5000);
         }
-      }).on('error', () => {
-        this.props.setMessage('Transaction Failed.');
-        setTimeout(() => {
-          this.props.clearMessage();
-        });
+      }).on('error', (err, receipt) => {
+        this.props.setMessage('Transaction Failed.', receipt.transactionHash);
       });
   }
 
   handleResult() {
     this.props.protocol.methods.result(this.props.id)
-      .send({from: this.props.account}, () => {
-        this.props.setMessage('Transaction Pending...');
-      }).on('confirmation', (number) => {
+      .send({from: this.props.account}, (err, transactionHash) => {
+        this.props.setMessage('Transaction Pending...', transactionHash);
+      }).on('confirmation', (number, receipt) => {
         if(number === 0) {
-          this.props.setMessage('Transaction Confirmed!');
+          this.props.setMessage('Transaction Confirmed!', receipt.transactionHash);
           this.props.getProposals();
           setTimeout(() => {
             this.props.clearMessage();
           }, 5000);
         }
-      }).on('error', () => {
-        this.props.setMessage('Transaction Failed.');
-        setTimeout(() => {
-          this.props.clearMessage();
-        });
+      }).on('error', (err, receipt) => {
+        this.props.setMessage('Transaction Failed.', receipt.transactionHash);
       });
   }
 

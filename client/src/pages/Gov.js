@@ -238,8 +238,8 @@ class Gov extends Component {
               voteWeightFor={proposal.voteWeightFor} 
               voteWeightAgainst={proposal.voteWeightAgainst}
               timeLeft={proposal.timeLeft}
-              setMessage={this.props.setMessage}
-              clearMessage={this.props.clearMessage}
+              setMessage={this.setMessage}
+              clearMessage={this.clearMessage}
             />
           );
         }
