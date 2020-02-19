@@ -13,7 +13,7 @@ function Nav(props) {
   }
 
   if(props.message) {
-    button = <Message message={props.message} />
+    button = <Message {...props} />
   } else {
     button = 
       <button className={address ? `nav__address` : 'nav__button'}>

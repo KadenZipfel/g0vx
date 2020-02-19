@@ -2,12 +2,21 @@ import React, {Component} from 'react';
 import '../layout/components/message.sass';
 
 class Message extends Component {
+  componentDidMount = () => {
+    console.log(this.props.txHash);
+  }
+
   render() {
     if(this.props.message) {
       return(
-        <div className="message">
+        <a 
+          className="message"
+          target="_blank"
+          rel="noopener noreferrer"
+          href={`http://ropsten.etherscan.io/tx/${this.props.txHash}`}
+        >
           {this.props.message}
-        </div>
+        </a>
       );
     } else {
       return null;

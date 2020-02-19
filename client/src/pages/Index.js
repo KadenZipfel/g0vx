@@ -15,7 +15,8 @@ class Index extends Component {
       web3: null,
       account: null,
       factory: null,
-      message: ''
+      message: '',
+      txHash: ''
     }
   }
 
@@ -61,16 +62,19 @@ class Index extends Component {
     clearInterval(this.accountInterval);
   }
 
-  setMessage = (newMessage) => {
+  setMessage = (newMessage, txHash) => {
     this.setState({
-      message: newMessage
+      message: newMessage,
+      txHash
     });
     console.log(this.state.message);
+    console.log(this.state.txHash);
   }
 
   clearMessage = () => {
     this.setState({
-      message: null
+      message: null,
+      txHash: null
     });
   }
 

@@ -28,20 +28,20 @@ class Hero extends Component {
     await this.props.factory.methods.createProtocol(
       this.state.timeLimit, 
       this.state.tokenAddress
-    ).send({from: this.props.account}, () => {
-      this.props.setMessage('Transaction Pending...');
-    }).on('confirmation', (number) => {
+    ).send({from: this.props.account}, (err, transactionHash) => {
+      this.props.setMessage('Transaction Pending...', transactionHash);
+    }).on('confirmation', (number, receipt) => {
       if(number === 0) {
-        this.props.setMessage('Transaction Confirmed!');
+        this.props.setMessage('Transaction Confirmed!', receipt.transactionHash);
         setTimeout(() => {
           // this.props.clearMessage();
         }, 5000);
       }
-    }).on('error', () => {
-      this.props.setMessage('Transaction Failed.');
+    }).on('error', (error, receipt) => {
+      this.props.setMessage('Transaction Failed.', receipt.transactionHash);
       setTimeout(() => {
         // this.props.clearMessage();
-      });
+      }, 5000);
     });
 
     this.props.factory.methods.getLastId().call((err, res) => {
