@@ -73,8 +73,8 @@ class Gov extends Component {
     await this.getProtocolAddress();
     await this.getProposals();
     await this.getTimeLimit();
-    this.getTokenName();
     this.toggleButtons();
+    this.getTokenName();
   };
  
   componentWillUnmount() {
@@ -179,6 +179,7 @@ class Gov extends Component {
 
   toggleButtons = () => {
     this.state.proposals.forEach(proposal => {
+      // console.log(proposal)
       if(proposal.ended && proposal.resulted === false) {
         const resultButton = document.querySelector(`.proposal__result--${proposal.id}`);
 
