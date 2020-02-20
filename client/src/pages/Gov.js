@@ -29,7 +29,8 @@ class Gov extends Component {
       timeLimit: null,
       proposals: [],
       error: false,
-      txHash: ''
+      txHash: '',
+      noProposals: ''
     }
   }
 
@@ -76,6 +77,7 @@ class Gov extends Component {
     await this.getProposals();
     this.toggleButtons();
     this.getTokenName();
+    this.noProposals();
   };
  
   componentWillUnmount() {
@@ -227,8 +229,13 @@ class Gov extends Component {
     }
   }
 
+  noProposals = () => {
+    if(this.state.proposals.length === 0) {
+      this.setState({noProposals: 'Nothing here yet... Be the first to submit a proposal!'});
+    }
+  }
+
   render() {
-    let proposalMessage;
     let proposals = [];
 
     this.state.proposals.forEach(proposal => {
@@ -271,10 +278,6 @@ class Gov extends Component {
         }
       }
     });
-
-    if(this.state.proposals.length === 0) {
-      proposalMessage = 'Nothing here yet... Be the first to submit a proposal!';
-    }
 
     if(this.state.error) {
       return (
@@ -330,7 +333,7 @@ class Gov extends Component {
               clearMessage={this.clearMessage}
               toggleProposalForm={this.toggleProposalForm}
             />
-            {proposalMessage}
+            {this.state.noProposals}
             <div className="gov__proposals">
               {proposals.reverse()}
             </div>
