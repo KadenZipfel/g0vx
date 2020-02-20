@@ -220,7 +220,9 @@ class Gov extends Component {
   }
 
   render() {
+    let proposalMessage;
     let proposals = [];
+
     this.state.proposals.forEach(proposal => {
       if(this.state.openCheck === true) {
         if(proposal.resulted === false) {
@@ -259,6 +261,10 @@ class Gov extends Component {
         }
       }
     });
+
+    if(this.state.proposals.length === 0) {
+      proposalMessage = 'Nothing here yet... Be the first to submit a proposal!';
+    }
 
     if(this.state.error) {
       return (
@@ -314,6 +320,7 @@ class Gov extends Component {
               clearMessage={this.clearMessage}
               toggleProposalForm={this.toggleProposalForm}
             />
+            {proposalMessage}
             {proposals}
           </div>
           <Message />
