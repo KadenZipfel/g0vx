@@ -322,7 +322,7 @@ class Gov extends Component {
               toggleProposalForm={this.toggleProposalForm}
             />
             {proposalMessage}
-            {proposals}
+            {proposals.reverse()}
           </div>
           <Message />
         </div>
