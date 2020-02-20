@@ -2,6 +2,11 @@
 @import ../config/breakpoints
   
 .nav
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  width: 100vw
   display: flex
   align-items: center
   justify-content: space-between
@@ -12,11 +17,12 @@
   font-weight: 300
   color: $color-brand
   font-size: 24px
+  text-decoration: none
 
 .nav__token
   font-weight: 300
   color: $color-grey
-  position: fixed
+  position: absolute
   top: 0
   left: 0
   right: 0
@@ -24,6 +30,7 @@
   display: flex
   justify-content: center
   margin-top: 14px
+  z-index: -1
 
 .nav__button
   color: $color-brand
