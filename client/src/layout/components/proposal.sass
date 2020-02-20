@@ -10,7 +10,7 @@
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.5)
   border-radius: 10px
   margin: 8px 0
-  padding: 8px 32px
+  padding: 8px
 
 .proposal__buttons
   display: flex
@@ -21,7 +21,7 @@
   background: none
   border: none
   cursor: pointer
-  margin: 4px
+  margin: 4px 24px
 
 .proposal__info
   display: flex
@@ -29,7 +29,8 @@
   justify-content: flex-start
   align-items: flex-start
   flex-grow: 1
-  margin: 0 32px
+  margin-right: 32px
+  margin-left: 8px
   width: 80%
 
 .proposal__name
@@ -57,13 +58,16 @@
   margin-bottom: 8px
   cursor: pointer
 
-.hidden
-  visibility: hidden
-  opacity: 0
-
 .proposal__time
   font-size: 14px
   color: $color-grey
   margin: 0
   align-self: flex-end
   margin-bottom: 8px
+
+.hidden
+  visibility: hidden
+  opacity: 0
+
+.gone
+  display: none

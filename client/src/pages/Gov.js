@@ -180,10 +180,16 @@ class Gov extends Component {
   toggleButtons = () => {
     this.state.proposals.forEach(proposal => {
       // console.log(proposal)
-      if(proposal.ended && proposal.resulted === false) {
-        const resultButton = document.querySelector(`.proposal__result--${proposal.id}`);
+      if(proposal.ended) {
+        const proposalButtons = Array.from(document.querySelectorAll(`.proposal__button--${proposal.id}`));
+        proposalButtons.forEach((button) => {
+          button.classList.add('gone');
+        });
 
-        resultButton.classList.remove('hidden');
+        if(proposal.resulted === false) {
+          const resultButton = document.querySelector(`.proposal__result--${proposal.id}`);
+          resultButton.classList.remove('hidden');
+        }
       }
     });
   }
