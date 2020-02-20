@@ -70,37 +70,32 @@ class Gov extends Component {
       }
     }, 1000);
 
-    this.getProtocolAddress();
+    await this.getProtocolAddress();
+    await this.getProposals();
+    await this.getTimeLimit();
+    this.getTokenName();
+    this.toggleButtons();
   };
  
   componentWillUnmount() {
     clearInterval(this.accountInterval);
   }
 
-  getProtocolAddress = () => {
-    this.state.factory.methods.getProtocol(
+  getProtocolAddress = async () => {
+     await this.state.factory.methods.getProtocol(
       this.state.govId
     ).call().then((res) => {
       this.setState({protocolAddress: res});
-    }).then(() => {
-      const protocol = new this.state.web3.eth.Contract(
-        Governance.abi, this.state.protocolAddress
-      );
-      this.setState({protocol});
-    }).then(() => {
-      if(this.state.protocolAddress.toString() === '0x0000000000000000000000000000000000000000') {
-        this.setState({error: true});
-      } else {
-        this.getProposals();
-      }
-    }).then(() => {
-      this.getTimeLimit();
-      this.getTokenName();
-    }).then(() => {
-      setTimeout(() => {
-        this.toggleButtons();
-      }, 1000);
     });
+
+    const protocol = new this.state.web3.eth.Contract(
+      Governance.abi, this.state.protocolAddress
+    );
+    this.setState({protocol});
+
+    if(this.state.protocolAddress.toString() === '0x0000000000000000000000000000000000000000') {
+      this.setState({error: true});
+    }
   }
 
   getTokenName = async () => {
@@ -137,7 +132,8 @@ class Gov extends Component {
     });
   }
 
-  async getProposals() {
+  getProposals = async () => {
+    await this.getProtocolAddress();
     const proposalsLength = await this.state.protocol.methods.getProposalsLength().call();
     let proposalArr = [];
     for(let i = 0; i < proposalsLength; i++) {
