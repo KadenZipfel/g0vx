@@ -80,7 +80,7 @@ class ProposalForm extends Component {
             value={this.state.proposalName}
             onChange={this.handleProposalNameChange}
             className="proposal-form__input"
-            minLength="8"
+            required
             maxLength="140"
           />
           <textarea 

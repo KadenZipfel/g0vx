@@ -10,7 +10,8 @@ class Hero extends Component {
     this.state = {
       tokenAddress: '',
       timeLimit: '',
-      protocolLink: null
+      protocolLink: null,
+      error: null
     }
   }
 
@@ -24,6 +25,12 @@ class Hero extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
+
+    if(!this.props.web3.utils.isAddress(this.state.tokenAddress)) {
+      return this.setState({error: 'Invalid token address'});
+    } else {
+      this.setState({error: null});
+    }
 
     await this.props.factory.methods.createProtocol(
       this.state.timeLimit, 
@@ -65,6 +72,9 @@ class Hero extends Component {
           <h1 className="hero__header">
             Create a Governance Protocol
           </h1>
+          <p className="hero__error">
+            {this.state.error}
+          </p>
           <form 
             onSubmit={this.handleSubmit}
             className="hero__form"
