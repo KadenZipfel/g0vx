@@ -71,8 +71,8 @@ class Gov extends Component {
     }, 1000);
 
     await this.getProtocolAddress();
-    await this.getProposals();
     await this.getTimeLimit();
+    await this.getProposals();
     this.toggleButtons();
     this.getTokenName();
   };
@@ -237,6 +237,7 @@ class Gov extends Component {
               voteWeightFor={proposal.voteWeightFor} 
               voteWeightAgainst={proposal.voteWeightAgainst}
               timeLeft={proposal.timeLeft}
+              ended={proposal.ended}
               setMessage={this.setMessage}
               clearMessage={this.clearMessage}
             />
@@ -255,6 +256,7 @@ class Gov extends Component {
               voteWeightFor={proposal.voteWeightFor} 
               voteWeightAgainst={proposal.voteWeightAgainst}
               timeLeft={proposal.timeLeft}
+              ended={proposal.ended}
               setMessage={this.setMessage}
               clearMessage={this.clearMessage}
             />
