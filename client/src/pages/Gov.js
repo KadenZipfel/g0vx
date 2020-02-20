@@ -8,6 +8,7 @@ import Message from '../components/Message';
 import ProposalForm from '../components/Gov/ProposalForm';
 import Proposal from '../components/Gov/Proposal';
 import Footer from '../components/Footer';
+import Spinner from '../components/Spinner';
 
 import '../layout/config/_base.sass';
 import '../layout/components/gov.sass';
@@ -237,6 +238,7 @@ class Gov extends Component {
 
   render() {
     let proposals = [];
+    let spinner = <Spinner />;
 
     this.state.proposals.forEach(proposal => {
       if(this.state.openCheck === true) {
@@ -278,6 +280,10 @@ class Gov extends Component {
         }
       }
     });
+
+    if(proposals.length > 0) {
+      spinner = null;
+    }
 
     if(this.state.error) {
       return (
@@ -335,6 +341,7 @@ class Gov extends Component {
             />
             {this.state.noProposals}
             <div className="gov__proposals">
+              {spinner}
               {proposals.reverse()}
             </div>
           </div>
