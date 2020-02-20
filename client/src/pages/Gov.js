@@ -7,6 +7,7 @@ import Nav from '../components/Nav';
 import Message from '../components/Message';
 import ProposalForm from '../components/Gov/ProposalForm';
 import Proposal from '../components/Gov/Proposal';
+import Footer from '../components/Footer';
 
 import '../layout/config/_base.sass';
 import '../layout/components/gov.sass';
@@ -334,6 +335,7 @@ class Gov extends Component {
               {proposals.reverse()}
             </div>
           </div>
+          <Footer />
           <Message />
         </div>
       );
