@@ -183,7 +183,6 @@ class Gov extends Component {
 
   toggleButtons = () => {
     this.state.proposals.forEach(proposal => {
-      // console.log(proposal)
       if(proposal.ended) {
         const proposalButtons = Array.from(document.querySelectorAll(`.proposal__button--${proposal.id}`));
         proposalButtons.forEach((button) => {
@@ -192,7 +191,9 @@ class Gov extends Component {
 
         if(proposal.resulted === false) {
           const resultButton = document.querySelector(`.proposal__result--${proposal.id}`);
-          resultButton.classList.remove('hidden');
+          if(resultButton) {
+            resultButton.classList.remove('hidden');
+          }
         }
       }
     });
@@ -203,22 +204,26 @@ class Gov extends Component {
     this.setState({timeLimit});
   }
 
-  handleOpenCheck = () => {
+  handleOpenCheck = async () => {
     if(this.state.openCheck === true) {
-      this.setState({openCheck: false});
+      await this.setState({openCheck: false});
     }
     else {
-      this.setState({openCheck: true});
+      await this.setState({openCheck: true});
     }
+
+    this.toggleButtons();
   }
 
-  handleClosedCheck = () => {
+  handleClosedCheck = async () => {
     if(this.state.closedCheck === true) {
-      this.setState({closedCheck: false});
+      await this.setState({closedCheck: false});
     }
     else {
-      this.setState({closedCheck: true});
+      await this.setState({closedCheck: true});
     }
+
+    this.toggleButtons();
   }
 
   toggleProposalForm = () => {
