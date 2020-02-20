@@ -39,6 +39,7 @@ class Hero extends Component {
       }
     }).on('error', (error, receipt) => {
       this.props.setMessage('Transaction Failed.', receipt.transactionHash);
+
     });
 
     this.props.factory.methods.getLastId().call((err, res) => {
@@ -52,44 +53,45 @@ class Hero extends Component {
   }
 
   render() {
-    let link;
-
     if(this.state.protocolLink) {
-      link = <Link to={this.state.protocolLink}>Go to Protocol</Link>
+      return (
+        <section className="hero">
+          <Link to={this.state.protocolLink} className="hero__link">Go to Protocol</Link>
+        </section>
+      );
+    } else {
+      return (
+        <section className="hero">
+          <h1 className="hero__header">
+            Create a Governance Protocol
+          </h1>
+          <form 
+            onSubmit={this.handleSubmit}
+            className="hero__form"
+          >
+            <input
+              name="address"
+              placeholder="Token address"
+              type="text"
+              className="hero__input"
+              onChange={this.handleAddressChange}
+              value={this.state.tokenAddress}
+            />
+            <input 
+              name="timeLimit"
+              placeholder="Proposal time limit (seconds)"
+              type="number"
+              className="hero__input"
+              onChange={this.handleTimeLimitChange}
+              value={this.state.timeLimit}
+            />
+            <button className="hero__button">
+              Create Governance
+            </button>
+          </form>
+        </section>
+      );
     }
-
-    return (
-      <section className="hero">
-        <h1 className="hero__header">
-          Create a Governance Protocol
-        </h1>
-        <form 
-          onSubmit={this.handleSubmit}
-          className="hero__form"
-        >
-          <input
-            name="address"
-            placeholder="Token address"
-            type="text"
-            className="hero__input"
-            onChange={this.handleAddressChange}
-            value={this.state.tokenAddress}
-          />
-          <input 
-            name="timeLimit"
-            placeholder="Proposal time limit (seconds)"
-            type="number"
-            className="hero__input"
-            onChange={this.handleTimeLimitChange}
-            value={this.state.timeLimit}
-          />
-          <button className="hero__button">
-            Create Governance
-          </button>
-        </form>
-        {link}
-      </section>
-    );
   }
 }
 
