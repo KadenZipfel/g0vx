@@ -28,7 +28,7 @@ class Proposal extends Component {
           this.props.getProposals();
         }
       }).on('error', (err, receipt) => {
-        this.props.setMessage('Transaction Failed.', receipt.transactionHash);
+        this.props.setMessage('Transaction Failed.', receipt ? receipt.transactionHash : null);
       });
   }
 
@@ -45,7 +45,7 @@ class Proposal extends Component {
           this.props.getProposals();
         }
       }).on('error', (err, receipt) => {
-        this.props.setMessage('Transaction Failed.', receipt.transactionHash);
+        this.props.setMessage('Transaction Failed.', receipt ? receipt.transactionHash : null);
       });
   }
 
@@ -62,7 +62,7 @@ class Proposal extends Component {
           this.props.getProposals();
         }
       }).on('error', (err, receipt) => {
-        this.props.setMessage('Transaction Failed.', receipt.transactionHash);
+        this.props.setMessage('Transaction Failed.', receipt ? receipt.transactionHash : null);
       });
   }
 

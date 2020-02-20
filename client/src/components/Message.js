@@ -9,7 +9,7 @@ class Message extends Component {
           className="message"
           target="_blank"
           rel="noopener noreferrer"
-          href={`http://ropsten.etherscan.io/tx/${this.props.txHash}`}
+          href={this.props.txHash ? `http://ropsten.etherscan.io/tx/${this.props.txHash}` : null}
         >
           {this.props.message}
         </a>

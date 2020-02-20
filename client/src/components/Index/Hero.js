@@ -45,8 +45,7 @@ class Hero extends Component {
         }, 5000);
       }
     }).on('error', (error, receipt) => {
-      this.props.setMessage('Transaction Failed.', receipt.transactionHash);
-
+      this.props.setMessage('Transaction Failed.', receipt ? receipt.transactionHash : null);
     });
 
     this.props.factory.methods.getLastId().call((err, res) => {
