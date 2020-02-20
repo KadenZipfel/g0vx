@@ -268,7 +268,7 @@ class Gov extends Component {
 
     if(this.state.error) {
       return (
-        <div>
+        <div className="gov">
           <Nav {...this.state} tokenName={this.state.token} />
           <p className="gov__error">Protocol does not exist.</p>
         </div>
