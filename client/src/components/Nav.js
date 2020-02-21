@@ -17,7 +17,7 @@ function Nav(props) {
   } else {
     button = 
       <button className={address ? `nav__address` : 'nav__button'}>
-        {address ? address : 'Connect to a Wallet'}
+        {address ? `${address.slice(0, 4)}...${address.slice(address.length - 4, address.length)}` : 'Connect to a Wallet'}
       </button>
   }
 
