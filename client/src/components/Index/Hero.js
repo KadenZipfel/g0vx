@@ -98,6 +98,9 @@ class Hero extends Component {
               Create Governance
             </button>
           </form>
+          <p className="hero__flex">
+            {this.props.numProtocols} governance protocols deployed with g0vx
+          </p>
         </section>
       );
     }

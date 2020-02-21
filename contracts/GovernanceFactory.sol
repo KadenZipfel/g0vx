@@ -13,6 +13,10 @@ contract GovernanceFactory {
     nextId++;
   }
 
+  function getId() public view returns(uint) {
+    return nextId;
+  }
+
   function getLastId() public view returns(uint) {
     uint id = nextId - 1;
     return id;

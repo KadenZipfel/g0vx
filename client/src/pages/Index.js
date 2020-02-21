@@ -17,7 +17,8 @@ class Index extends Component {
       account: null,
       factory: null,
       message: '',
-      txHash: ''
+      txHash: '',
+      numProtocols: null
     }
   }
 
@@ -57,6 +58,8 @@ class Index extends Component {
         console.log(this.state.account);
       }
     }, 1000);
+
+    this.getNumProtocols();
   };
 
   componentWillUnmount() {
@@ -76,6 +79,12 @@ class Index extends Component {
     this.setState({
       message: null,
       txHash: null
+    });
+  }
+
+  getNumProtocols = () => {
+    this.state.factory.methods.getId().call((err, res) => {
+      this.setState({numProtocols: res});
     });
   }
 
