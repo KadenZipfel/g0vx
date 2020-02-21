@@ -13,8 +13,6 @@ class Proposal extends Component {
     this.handleVoteFor = this.handleVoteFor.bind(this);
     this.handleVoteAgainst = this.handleVoteAgainst.bind(this);
     this.handleResult = this.handleResult.bind(this);
-
-    let result;
     this.getResult();
   }
 
