@@ -9,15 +9,13 @@ import downvote from '../../images/downvote.svg'
 class Proposal extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      result: null
-    }
 
     this.handleVoteFor = this.handleVoteFor.bind(this);
     this.handleVoteAgainst = this.handleVoteAgainst.bind(this);
     this.handleResult = this.handleResult.bind(this);
 
-    this.handleClosedProposals();
+    let result;
+    this.getResult();
   }
 
   handleVoteFor() {
@@ -71,21 +69,15 @@ class Proposal extends Component {
       });
   }
 
-  handleClosedProposals = () => {
-    if(this.props.resulted === true) {
-      this.setState({result: this.props.result});
+  getResult() {
+    if(this.props.resulted) {
+      console.log('Resulted');
+      console.log('Result: ', this.props.result);
+      this.props.result === true ? this.result = 'Passed' : this.result = 'Failed';
     }
   }
 
   render() {
-    let result;
-
-    if(this.state.result === true) {
-      result = 'Passed';  
-    } else {
-      result = 'Failed';
-    }
-
     return (
       <div className="proposal">
         <div className="proposal__buttons">
@@ -106,15 +98,15 @@ class Proposal extends Component {
           <p className="proposal__name">{this.props.web3.utils.hexToAscii(this.props.title)}</p>
           <p className="proposal__description">{this.props.web3.utils.hexToAscii(this.props.description)}</p>
         </div>
-        <button 
+        <p 
           onClick={this.handleResult}
           className={'hidden proposal__result proposal__result--' + this.props.id}
         >
           Show Results
-        </button>
+        </p>
         <Time timeLeft={this.props.timeLeft} />
         <p className="proposal__results">
-          {result}
+          {this.result}
         </p>
       </div>
     );
