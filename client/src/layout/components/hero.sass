@@ -14,11 +14,17 @@
   margin-bottom: 16px
   font-weight: 300
   color: $color-brand
+  text-align: center
+
++media($breakpoint-sm) 
+  .hero__header
+    font-size: 24px
 
 .hero__form
   display: flex
   flex-direction: column
   align-items: center
+  max-width: 90vw
 
 .hero__input
   text-align: center
@@ -30,6 +36,7 @@
   font-weight: 300
   font-family: Roboto
   margin: 2px
+  max-width: 100%
 
 .hero__button
   font-size: 32px
@@ -44,6 +51,10 @@
   font-weight: 300 !important
   margin: 8px 0
   cursor: pointer
+
++media($breakpoint-sm) 
+  .hero__button
+    font-size: 24px
 
 .hero__link
   font-size: 32px
@@ -70,3 +81,7 @@
   font-size: 18px
   margin: 0
   font-weight: 300
+
++media($breakpoint-sm) 
+  .hero__flex
+    font-size: 14px
