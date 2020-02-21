@@ -52,6 +52,8 @@ class ProposalForm extends Component {
       }).on('error', (error, receipt) => {
         this.props.setMessage('Transaction Failed.', receipt ? receipt.transactionHash : null);
       });
+
+    this.props.noProposals();
   }
 
   handleProposalFormClick = (e) => {

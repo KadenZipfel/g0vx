@@ -60,10 +60,6 @@ class Index extends Component {
     }, 1000);
 
     this.getNumProtocols();
-  };
-
-  componentWillUnmount() {
-    clearInterval(this.accountInterval);
   }
 
   setMessage = (newMessage, txHash) => {

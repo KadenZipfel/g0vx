@@ -31,7 +31,8 @@ class Gov extends Component {
       proposals: [],
       error: false,
       txHash: '',
-      noProposals: ''
+      noProposals: '',
+      loading: true
     }
   }
 
@@ -139,32 +140,37 @@ class Gov extends Component {
   getProposals = async () => {
     await this.getProtocolAddress();
     const proposalsLength = await this.state.protocol.methods.getProposalsLength().call();
-    let proposalArr = [];
-    for(let i = 0; i < proposalsLength; i++) {
-      const proposal = await this.state.protocol.methods.proposals(i).call();
-      const proposalObj = {
-        id: proposal.id, 
-        title: proposal.title,
-        description: proposal.description,
-        startTime: proposal.startTime,
-        voteWeightFor: proposal.voteWeightFor,
-        voteWeightAgainst: proposal.voteWeightAgainst,
-        result: proposal.result,
-        resulted: proposal.resulted
-      };
-      console.log(proposalObj);
-      if((parseInt(proposalObj.startTime) + parseInt(this.state.timeLimit)) <= Math.floor(Date.now() / 1000)) {
-        proposalObj.ended = true;
-        proposalObj.timeLeft = 0;
-      } else {
-        proposalObj.ended = false;
-        // Get time here
-        const time = (parseInt(proposalObj.startTime) + parseInt(this.state.timeLimit) - Math.floor(Date.now() / 1000));
-        proposalObj.timeLeft = this.formatTime(time);
+    if(proposalsLength > 0) {
+      let proposalArr = [];
+      for(let i = 0; i < proposalsLength; i++) {
+        const proposal = await this.state.protocol.methods.proposals(i).call();
+        const proposalObj = {
+          id: proposal.id, 
+          title: proposal.title,
+          description: proposal.description,
+          startTime: proposal.startTime,
+          voteWeightFor: proposal.voteWeightFor,
+          voteWeightAgainst: proposal.voteWeightAgainst,
+          result: proposal.result,
+          resulted: proposal.resulted
+        };
+        console.log(proposalObj);
+        if((parseInt(proposalObj.startTime) + parseInt(this.state.timeLimit)) <= Math.floor(Date.now() / 1000)) {
+          proposalObj.ended = true;
+          proposalObj.timeLeft = 0;
+        } else {
+          proposalObj.ended = false;
+          // Get time here
+          const time = (parseInt(proposalObj.startTime) + parseInt(this.state.timeLimit) - Math.floor(Date.now() / 1000));
+          proposalObj.timeLeft = this.formatTime(time);
+        }
+        proposalArr.push(proposalObj);
       }
-      proposalArr.push(proposalObj);
+      this.setState({proposals: proposalArr});
+      this.setState({loading: false});
+    } else {
+      this.setState({loading: false});
     }
-    this.setState({proposals: proposalArr});
   }
 
   formatTime(time) {
@@ -243,7 +249,13 @@ class Gov extends Component {
 
   render() {
     let proposals = [];
-    let spinner = <Spinner />;
+    let spinner;
+
+    if(this.state.loading === true) {
+      spinner = <Spinner />;
+    } else {
+      spinner = null;
+    }
 
     this.state.proposals.forEach(proposal => {
       if(this.state.openCheck === true) {
@@ -285,10 +297,6 @@ class Gov extends Component {
         }
       }
     });
-
-    if(proposals.length > 0) {
-      spinner = null;
-    }
 
     if(this.state.error) {
       return (
@@ -343,6 +351,7 @@ class Gov extends Component {
               setMessage={this.setMessage}
               clearMessage={this.clearMessage}
               toggleProposalForm={this.toggleProposalForm}
+              noProposals={this.noProposals}
             />
             {this.state.noProposals}
             <div className="gov__proposals">

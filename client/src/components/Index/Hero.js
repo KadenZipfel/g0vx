@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 
 import '../../layout/components/hero.sass';
 
@@ -62,7 +61,7 @@ class Hero extends Component {
     if(this.state.protocolLink) {
       return (
         <section className="hero">
-          <Link to={this.state.protocolLink} className="hero__link">Go to Protocol</Link>
+          <a href={this.state.protocolLink} className="hero__link">Go to Protocol</a>
         </section>
       );
     } else {

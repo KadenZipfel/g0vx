@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 
 import Message from './Message';
 
@@ -24,9 +23,9 @@ function Nav(props) {
 
   return (
     <nav className="nav">
-      <Link to='/' className="nav__brand">
+      <a href='/' className="nav__brand">
         G0VX
-      </Link>
+      </a>
       <h2 className="nav__token">
         {props.tokenName}
       </h2>
