@@ -9,10 +9,15 @@ import downvote from '../../images/downvote.svg'
 class Proposal extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      result: null
+    }
 
     this.handleVoteFor = this.handleVoteFor.bind(this);
     this.handleVoteAgainst = this.handleVoteAgainst.bind(this);
     this.handleResult = this.handleResult.bind(this);
+
+    this.handleClosedProposals();
   }
 
   handleVoteFor() {
@@ -66,7 +71,21 @@ class Proposal extends Component {
       });
   }
 
+  handleClosedProposals = () => {
+    if(this.props.resulted === true) {
+      this.setState({result: this.props.result});
+    }
+  }
+
   render() {
+    let result;
+
+    if(this.state.result === true) {
+      result = 'Passed';  
+    } else {
+      result = 'Failed';
+    }
+
     return (
       <div className="proposal">
         <div className="proposal__buttons">
@@ -94,14 +113,9 @@ class Proposal extends Component {
           Show Results
         </button>
         <Time timeLeft={this.props.timeLeft} />
-        {/* <div className="proposal__weights">
-          <p className="proposal__weight">
-            {this.props.web3.utils.fromWei(this.props.voteWeightFor)}
-          </p>
-          <p className="proposal__weight">
-            {this.props.web3.utils.fromWei(this.props.voteWeightAgainst)}
-          </p>
-        </div> */}
+        <p className="proposal__results">
+          {result}
+        </p>
       </div>
     );
   }

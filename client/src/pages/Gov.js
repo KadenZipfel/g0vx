@@ -290,6 +290,7 @@ class Gov extends Component {
               voteWeightAgainst={proposal.voteWeightAgainst}
               timeLeft={proposal.timeLeft}
               ended={proposal.ended}
+              result={proposal.result}
               setMessage={this.setMessage}
               clearMessage={this.clearMessage}
             />
