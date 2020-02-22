@@ -13,7 +13,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Router>
+        <Router basename="/g0vx">
           <Route exact path="/" component={Index} />
           <Route path="/gov/:govId" component={Gov} />
         </Router>
