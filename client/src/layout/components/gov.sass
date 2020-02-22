@@ -12,6 +12,11 @@
   font-weight: 300
   color: $color-brand
   margin-bottom: 60px
+  max-width: 90vw
+  text-align: center
+
++media($breakpoint-sm)
+  margin-bottom: 40px
 
 .gov__utils
   display: flex
@@ -20,10 +25,15 @@
   width: 1068px
   max-width: 95%
   margin-bottom: 16px
+  max-width: 90vw
+
++media($breakpoint-sm)
+  .gov__utils
+    flex-direction: column
 
 .gov__proposal-button
   color: $color-brand
-  font-size: 14px
+  font-size: 16px
   border-color: $color-brand
   border-radius: 50px
   background: white
@@ -31,6 +41,10 @@
   border-width: 1px
   cursor: pointer
   transition: 0.2s color, 0.2s background
+
++media($breakpoint-sm)
+  .gov__proposal-button
+    margin-bottom: 16px
 
 .gov__proposal-button:hover
   background: $color-brand
@@ -49,6 +63,11 @@
   position: relative
   cursor: pointer
 
++media($breakpoint-sm)
+  .gov__label
+    font-size: 16px
+    margin-left: 8px
+
 .gov__checkbox
   position: absolute
   opacity: 0
@@ -66,6 +85,11 @@
   cursor: pointer
   transition: 0.2s background
 
++media($breakpoint-sm)
+  .gov__checkmark
+    height: 16px
+    width: 16px
+
 .gov__checkbox:checked ~ .gov__checkmark
   background: $color-brand
 
@@ -77,5 +101,5 @@
 
 .gov__proposals
   width: 1068px
-  max-width: 95%
+  max-width: 90%
   margin-bottom: 48px
