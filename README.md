@@ -4,7 +4,7 @@ G0VX is a minimalist token governance protocol. Vote on governance proposals bas
 
 ## Getting Started
 
-https://kadenzipfel.github.io/g0vx/
+https://govx.dev
 
 Try it yourself (Ropsten):
 - Download metamask
