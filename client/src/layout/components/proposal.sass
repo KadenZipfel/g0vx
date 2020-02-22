@@ -22,6 +22,9 @@
   cursor: pointer
   margin: 4px 24px
 
+  +media($breakpoint-sm)
+    margin: 4px
+
 .proposal__info
   display: flex
   flex-direction: column
@@ -31,6 +34,9 @@
   margin-right: 32px
   margin-left: 8px
   width: 80%
+
+  +media($breakpoint-sm)
+    margin-right: 0
 
 .proposal__name
   font-size: 18px
@@ -57,6 +63,9 @@
   margin-bottom: 8px
   cursor: pointer
 
+  +media($breakpoint-sm)
+    display: none
+
 .proposal__time
   font-size: 14px
   color: $color-grey
@@ -65,6 +74,9 @@
   margin-bottom: 8px
   width: 100px
 
+  +media($breakpoint-sm)
+    display: none
+
 .proposal__results
   color: $color-grey
   font-size: 14px
@@ -72,9 +84,13 @@
   align-self: flex-end
   padding-right: 4px
 
+  +media($breakpoint-sm)
+    display: none
+
 .hidden
   visibility: hidden
   opacity: 0
+  width: 0
 
 .gone
   display: none
