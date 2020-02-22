@@ -303,17 +303,17 @@ class Gov extends Component {
     if(this.state.error) {
       return (
         <div className="gov">
-          <Nav {...this.state} tokenName={this.state.token} />
+          <Nav {...this.state} />
           <p className="gov__error">Protocol does not exist.</p>
         </div>
       );
     } else {
       return (
         <div>
-          <Nav {...this.state} tokenName={this.state.token} />
+          <Nav {...this.state} />
           <div className="gov">
             <h2 className="gov__header">
-              Proposals
+              {this.state.token} Governance
             </h2>
             <div className="gov__utils">
               <button 

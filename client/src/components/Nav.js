@@ -26,9 +26,6 @@ function Nav(props) {
       <a href='/' className="nav__brand">
         G0VX
       </a>
-      <h2 className="nav__token">
-        {props.tokenName}
-      </h2>
       {button}
     </nav>
   )
