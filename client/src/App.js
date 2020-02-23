@@ -13,10 +13,10 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
           <Route exact path="/" component={Index} />
           <Route path="/gov/:govId" component={Gov} />
-        </Router>
+      </Router>
       </div>
     );
   }
