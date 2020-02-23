@@ -61,7 +61,7 @@ class Hero extends Component {
     if(this.state.protocolLink) {
       return (
         <section className="hero">
-          <a href={this.state.protocolLink} className="hero__link">Go to Protocol</a>
+          <a href={`/#${this.state.protocolLink}`} className="hero__link">Go to Protocol</a>
         </section>
       );
     } else {
