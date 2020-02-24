@@ -72,7 +72,7 @@ contract Governance {
         require(vote.voted == false, 'You have already voted on this proposal.');
         require(proposals[_proposalId].startTime + timeLimit > now, 'The voting period has expired.');
 
-        voters[msg.sender].weight = token.balanceOf(msg.sender);
+        voters[msg.sender].weight = sqrt(token.balanceOf(msg.sender));
 
         vote.voted = true;
         vote.support = _support;
@@ -101,7 +101,18 @@ contract Governance {
         }
     }
 
+    // Get the total number of proposals
     function getProposalsLength() public view returns(uint) {
         return proposals.length;
+    }
+
+    // Calculate the approximate square root
+    function sqrt(uint x) internal pure returns (uint y) {
+        uint z = (x + 1) / 2;
+        y = x;
+        while (z < y) {
+            y = z;
+            z = (x / z + z) / 2;
+        }
     }
 }
