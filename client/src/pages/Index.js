@@ -43,9 +43,6 @@ class Index extends Component {
       this.setState({ web3, accounts, factory: instance }, this.runExample)
     } catch (error) {
       // Catch any errors for any of the above operations.
-      alert(
-        `Failed to load web3, accounts, or contract. Check console for details.`,
-      );
       console.error(error);
     }
 

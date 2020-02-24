@@ -59,9 +59,6 @@ class Gov extends Component {
       this.setState({ web3, accounts, factory: factory, govId: id }, this.runExample)
     } catch (error) {
       // Catch any errors for any of the above operations.
-      alert(
-        `Failed to load web3, accounts, or contract. Check console for details.`,
-      );
       console.error(error);
     }
 
@@ -87,7 +84,7 @@ class Gov extends Component {
   }
 
   getProtocolAddress = async () => {
-     await this.state.factory.methods.getProtocol(
+    await this.state.factory.methods.getProtocol(
       this.state.govId
     ).call().then((res) => {
       this.setState({protocolAddress: res});
