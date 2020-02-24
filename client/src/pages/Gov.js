@@ -26,7 +26,7 @@ class Gov extends Component {
       protocol: null,
       token: null,
       openCheck: true,
-      closedCheck: false,
+      closedCheck: true,
       timeLimit: null,
       proposals: [],
       error: false,
