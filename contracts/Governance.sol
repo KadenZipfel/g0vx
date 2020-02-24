@@ -1,11 +1,15 @@
 pragma solidity 0.5.8;
 
+import './lib/SafeMath.sol';
+
 interface ERC20 {
     function balanceOf(address guy) external view returns (uint);
 }
 
 /// @title Governance Protocol
 contract Governance {
+    using SafeMath for uint256;
+
     struct Proposal {
         bytes title; // proposal title
         bytes description; // proposal description
